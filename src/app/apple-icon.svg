@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <title>Petersfield Kebab — apple touch icon</title>
+  <rect width="180" height="180" rx="36" fill="#505058" />
+  <g fill="#F8C028" transform="translate(0,0)">
+    <rect x="86" y="32" width="8" height="120" rx="3" />
+    <path d="M62 52 L118 52 L113 64 L67 64 Z" />
+    <path d="M60 68 L120 68 L114 86 L66 86 Z" />
+    <path d="M62 90 L118 90 L113 110 L67 110 Z" />
+    <path d="M66 114 L114 114 L109 132 L71 132 Z" />
+  </g>
+</svg>

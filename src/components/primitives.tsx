@@ -56,18 +56,18 @@ export function Section({
 export function Eyebrow({
   children,
   onDark,
-  saffron,
+  gold,
   style,
 }: {
   children: ReactNode;
   onDark?: boolean;
-  saffron?: boolean;
+  gold?: boolean;
   style?: CSSProperties;
 }) {
   const classes = [
     "pk-eyebrow",
     onDark ? "pk-eyebrow--on-dark" : "",
-    saffron ? "pk-eyebrow--saffron" : "",
+    gold ? "pk-eyebrow--gold" : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -84,7 +84,7 @@ export function SectionHead({
   lead,
   center,
   onDark,
-  saffronRule = true,
+  goldRule = true,
   maxWidth = 680,
 }: {
   eyebrow?: ReactNode;
@@ -92,7 +92,7 @@ export function SectionHead({
   lead?: ReactNode;
   center?: boolean;
   onDark?: boolean;
-  saffronRule?: boolean;
+  goldRule?: boolean;
   maxWidth?: number;
 }) {
   return (
@@ -105,9 +105,9 @@ export function SectionHead({
         textAlign: center ? "center" : undefined,
       }}
     >
-      {saffronRule ? (
+      {goldRule ? (
         <div
-          className={`pk-saffron-rule${center ? " pk-saffron-rule--center" : ""}`}
+          className={`pk-gold-rule${center ? " pk-gold-rule--center" : ""}`}
         />
       ) : null}
       {eyebrow ? (
@@ -180,9 +180,9 @@ export function TextLink({
         fontFamily: "var(--font-sans)",
         fontWeight: 600,
         fontSize: "0.95rem",
-        color: onDark ? "var(--ink-on-dark)" : "var(--ember-deep)",
+        color: onDark ? "var(--ink-on-dark)" : "var(--ink)",
         textDecoration: "none",
-        borderBottom: `1px solid ${onDark ? "var(--saffron)" : "var(--ember-deep)"}`,
+        borderBottom: `2px solid var(--gold)`,
         paddingBottom: 2,
       }}
     >
@@ -204,9 +204,12 @@ export function Chip({
   return <span className={cls}>{children}</span>;
 }
 
-/* ---------- Flame rule (single ornament) ---------- */
-export function FlameRule({ onDark = false }: { onDark?: boolean }) {
-  const colour = onDark ? "var(--saffron)" : "var(--ember)";
+/* ---------- Chevron rule (single ornament, lifted from the badge) ----------
+   The wordmark on the badge separates KEBAB > HOUSE with this chevron — the
+   only piece of styling unique to the brand. Used 2–3 times per page max. */
+export function ChevronRule({ onDark = false }: { onDark?: boolean }) {
+  const colour = onDark ? "var(--gold)" : "var(--ink)";
+  const lineColour = onDark ? "var(--rule-on-dark)" : "var(--rule)";
   return (
     <div
       style={{
@@ -222,14 +225,14 @@ export function FlameRule({ onDark = false }: { onDark?: boolean }) {
         style={{
           flex: 1,
           height: 1,
-          background: onDark ? "var(--rule-on-dark)" : "var(--rule)",
+          background: lineColour,
           maxWidth: 220,
         }}
       />
       <svg
-        width="22"
-        height="28"
-        viewBox="0 0 22 28"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         style={{ flex: "none" }}
@@ -237,21 +240,19 @@ export function FlameRule({ onDark = false }: { onDark?: boolean }) {
         focusable="false"
       >
         <path
-          d="M11 2 C 13 7, 18 9, 18 16 C 18 22, 14.5 26, 11 26 C 7.5 26, 4 22, 4 16 C 4 12, 6 11, 7 8 C 8.2 11, 9 12, 11 2 Z"
-          fill={colour}
-          opacity="0.92"
-        />
-        <path
-          d="M11 9 C 12 12, 14.5 13, 14.5 17 C 14.5 20, 12.8 22.5, 11 22.5 C 9.2 22.5, 7.5 20, 7.5 17 C 7.5 14.5, 9 13, 11 9 Z"
-          fill={onDark ? "var(--ember)" : "var(--pomegranate)"}
-          opacity="0.85"
+          d="M6.5 3.5 L13 10 L6.5 16.5"
+          stroke={colour}
+          strokeWidth="2.4"
+          strokeLinecap="square"
+          strokeLinejoin="miter"
+          fill="none"
         />
       </svg>
       <span
         style={{
           flex: 1,
           height: 1,
-          background: onDark ? "var(--rule-on-dark)" : "var(--rule)",
+          background: lineColour,
           maxWidth: 220,
         }}
       />
@@ -437,7 +438,7 @@ export function StarRating({
     >
       <span
         style={{
-          color: "var(--saffron)",
+          color: "var(--gold)",
           fontSize: compact ? "1rem" : "1.1rem",
           letterSpacing: "0.05em",
         }}
@@ -536,14 +537,12 @@ function computeStatus(now: Date) {
   const day = now.getDay();
   const nowMin = now.getHours() * 60 + now.getMinutes();
   const today = HOURS[day];
-  // Today is still open
   if (nowMin >= today.openMin && nowMin < today.closeMin) {
     return {
       open: true,
       label: `Open now · closes ${formatClose(today.closeMin)}`,
     };
   }
-  // Yesterday's late-night spillover (close > 24h)
   const yesterday = HOURS[(day + 6) % 7];
   if (yesterday.closeMin > 24 * 60 && nowMin < yesterday.closeMin - 24 * 60) {
     return {
@@ -551,7 +550,6 @@ function computeStatus(now: Date) {
       label: `Open now · closes ${formatClose(yesterday.closeMin)}`,
     };
   }
-  // Closed — show next opening
   if (nowMin < today.openMin) {
     return {
       open: false,
@@ -585,9 +583,9 @@ export function OpenStatus() {
           width: 6,
           height: 6,
           borderRadius: "50%",
-          background: status.open ? "#fff" : "rgba(255,255,255,.7)",
+          background: status.open ? "var(--ink)" : "var(--canvas)",
           marginRight: 6,
-          boxShadow: status.open ? "0 0 0 3px rgba(255,255,255,0.15)" : "none",
+          boxShadow: status.open ? "0 0 0 3px rgba(31,33,38,0.15)" : "none",
         }}
       />
       {status.label}
@@ -602,7 +600,7 @@ export function OpeningHours({ onDark = false }: { onDark?: boolean }) {
       <div
         className="pk-eyebrow"
         style={{
-          color: onDark ? "var(--saffron)" : "var(--ink-muted)",
+          color: onDark ? "var(--gold)" : "var(--ink-muted)",
           marginBottom: 12,
         }}
       >
@@ -630,8 +628,8 @@ export function OpeningHours({ onDark = false }: { onDark?: boolean }) {
                 fontWeight: isToday ? 600 : 400,
                 color: isToday
                   ? onDark
-                    ? "var(--saffron)"
-                    : "var(--ember-deep)"
+                    ? "var(--gold)"
+                    : "var(--ink)"
                   : "inherit",
               }}
             >

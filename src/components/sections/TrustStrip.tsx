@@ -13,7 +13,7 @@ export function TrustStrip() {
             headline={
               <span>
                 <span className="pk-tnum">4.8★</span>{" "}
-                <span style={{ color: "var(--saffron)" }}>·</span>{" "}
+                <span style={{ color: "var(--gold-deep)" }}>·</span>{" "}
                 <span className="pk-tnum">535</span> reviews
               </span>
             }

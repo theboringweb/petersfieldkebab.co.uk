@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const NAV_ITEMS: { label: string; href: string }[] = [
@@ -5,6 +6,10 @@ const NAV_ITEMS: { label: string; href: string }[] = [
   { label: "About", href: "/#about" },
   { label: "Find us", href: "/#visit" },
 ];
+
+const LOGO_W = 921;
+const LOGO_H = 851;
+const LOGO_ASPECT = LOGO_W / LOGO_H;
 
 export function Header() {
   return (
@@ -21,7 +26,7 @@ export function Header() {
         style={{
           maxWidth: "var(--wrap-max)",
           margin: "0 auto",
-          padding: "20px 40px",
+          padding: "16px 40px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -31,36 +36,22 @@ export function Header() {
       >
         <Link
           href="/"
-          className="pk-wordmark"
-          style={{
-            fontSize: "clamp(1.2rem, 2.4vw, 1.5rem)",
-            display: "inline-flex",
-            alignItems: "baseline",
-            gap: 10,
-          }}
+          aria-label="Petersfield Kebab House — home"
+          className="pk-logo-link pk-logo-link--header"
         >
-          <span>Petersfield Kebab</span>
-          <span
-            aria-hidden
+          <Image
+            src="/brand/logo-full.png"
+            alt="Petersfield Kebab House"
+            width={LOGO_W}
+            height={LOGO_H}
+            priority
+            sizes="(max-width: 640px) 44px, 56px"
             style={{
-              width: 1,
-              height: 18,
-              background: "var(--rule-strong)",
-              display: "inline-block",
+              height: 56,
+              width: 56 * LOGO_ASPECT,
+              display: "block",
             }}
           />
-          <span
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontWeight: 500,
-              fontSize: "0.72rem",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "var(--ink-muted)",
-            }}
-          >
-            Charcoal grill
-          </span>
         </Link>
 
         <nav
@@ -88,6 +79,11 @@ export function Header() {
           </a>
         </nav>
       </div>
+      <style>
+        {`@media (max-width: 640px) {
+          .pk-logo-link--header img { height: 44px !important; width: ${44 * LOGO_ASPECT}px !important; }
+        }`}
+      </style>
     </header>
   );
 }
@@ -118,30 +114,29 @@ export function Footer() {
             marginBottom: "2.5rem",
             display: "flex",
             flexWrap: "wrap",
-            gap: "1rem",
+            gap: "1.5rem",
             justifyContent: "space-between",
-            alignItems: "flex-end",
+            alignItems: "center",
           }}
         >
-          <div>
-            <div
-              className="pk-wordmark pk-wordmark--on-dark"
-              style={{ fontSize: "1.4rem", marginBottom: 6 }}
-            >
-              Petersfield Kebab
-            </div>
-            <div
+          <Link
+            href="/"
+            aria-label="Petersfield Kebab House — home"
+            className="pk-logo-link"
+          >
+            <Image
+              src="/brand/logo-full.png"
+              alt="Petersfield Kebab House"
+              width={LOGO_W}
+              height={LOGO_H}
+              sizes="96px"
               style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: "0.72rem",
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: "var(--saffron)",
+                height: 96,
+                width: 96 * LOGO_ASPECT,
+                display: "block",
               }}
-            >
-              Charcoal grill · Chapel Street
-            </div>
-          </div>
+            />
+          </Link>
           <a
             href="https://connect.poscraft.co.uk/"
             className="pk-btn pk-btn--primary"
@@ -154,7 +149,7 @@ export function Footer() {
           <div>
             <div
               className="pk-eyebrow"
-              style={{ color: "var(--saffron)", marginBottom: 12 }}
+              style={{ color: "var(--gold)", marginBottom: 12 }}
             >
               Find us
             </div>
@@ -179,9 +174,9 @@ export function Footer() {
                 href="tel:01730263348"
                 className="pk-tnum"
                 style={{
-                  color: "var(--saffron)",
+                  color: "var(--gold)",
                   textDecoration: "none",
-                  borderBottom: "1px solid var(--saffron)",
+                  borderBottom: "1px solid var(--gold)",
                   paddingBottom: 2,
                   fontWeight: 600,
                   fontSize: "0.95rem",
@@ -196,7 +191,7 @@ export function Footer() {
           <div>
             <div
               className="pk-eyebrow"
-              style={{ color: "var(--saffron)", marginBottom: 12 }}
+              style={{ color: "var(--gold)", marginBottom: 12 }}
             >
               Hours
             </div>
@@ -218,7 +213,7 @@ export function Footer() {
           <div>
             <div
               className="pk-eyebrow"
-              style={{ color: "var(--saffron)", marginBottom: 12 }}
+              style={{ color: "var(--gold)", marginBottom: 12 }}
             >
               Pages
             </div>
@@ -269,8 +264,8 @@ export function Footer() {
                 alignItems: "center",
                 gap: 6,
                 padding: "4px 8px",
-                border: "1px solid var(--saffron)",
-                color: "var(--saffron)",
+                border: "1px solid var(--gold)",
+                color: "var(--gold)",
                 borderRadius: 2,
                 fontWeight: 700,
               }}

@@ -29,7 +29,7 @@ function Stars() {
       role="img"
       aria-label="5 stars"
       style={{
-        color: "var(--saffron)",
+        color: "var(--gold)",
         fontSize: "0.95rem",
         letterSpacing: "0.08em",
       }}
@@ -83,9 +83,13 @@ export function Reviews() {
                   letterSpacing: "-0.005em",
                 }}
               >
-                <span style={{ color: "var(--ember)", marginRight: 4 }}>“</span>
+                <span style={{ color: "var(--gold-deep)", marginRight: 4 }}>
+                  “
+                </span>
                 {r.quote}
-                <span style={{ color: "var(--ember)", marginLeft: 2 }}>”</span>
+                <span style={{ color: "var(--gold-deep)", marginLeft: 2 }}>
+                  ”
+                </span>
               </blockquote>
               <figcaption
                 style={{

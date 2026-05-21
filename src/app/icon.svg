@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <title>Petersfield Kebab — icon</title>
+  <circle cx="32" cy="32" r="32" fill="#505058" />
+  <!-- Doner spit silhouette: vertical skewer with stacked-meat silhouette -->
+  <g fill="#F8C028">
+    <rect x="30.5" y="10" width="3" height="44" rx="1.2" />
+    <path d="M22 19 L42 19 L40.5 24 L23.5 24 Z" />
+    <path d="M21 26 L43 26 L41.2 33 L22.8 33 Z" />
+    <path d="M22 35 L42 35 L40.4 42 L23.6 42 Z" />
+    <path d="M23.5 44 L40.5 44 L39 50 L25 50 Z" />
+  </g>
+</svg>

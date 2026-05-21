@@ -1,7 +1,7 @@
 import {
   Button,
+  ChevronRule,
   Chip,
-  FlameRule,
   Section,
   SectionHead,
   Wrap,
@@ -59,7 +59,7 @@ export function MenuSampler() {
   return (
     <>
       <Wrap>
-        <FlameRule />
+        <ChevronRule />
       </Wrap>
       <Section id="menu-sampler" band label="Menu sampler">
         <Wrap>

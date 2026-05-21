@@ -272,8 +272,8 @@ export default function MenuPage() {
               position: "absolute",
               inset: 0,
               background:
-                "radial-gradient(60% 80% at 80% 30%, rgba(217,162,63,0.22) 0%, transparent 60%)," +
-                "radial-gradient(50% 70% at 20% 80%, rgba(197,57,30,0.25) 0%, transparent 60%)",
+                "radial-gradient(60% 80% at 80% 30%, rgba(248,192,40,0.18) 0%, transparent 60%)," +
+                "radial-gradient(50% 70% at 20% 80%, rgba(80,80,88,0.45) 0%, transparent 60%)",
             }}
           />
           <Wrap style={{ position: "relative" }}>
@@ -364,10 +364,7 @@ export default function MenuPage() {
 
               {MENU.map((category) => (
                 <section key={category.title} style={{ marginBottom: "3rem" }}>
-                  <div
-                    className="pk-saffron-rule"
-                    style={{ marginBottom: 14 }}
-                  />
+                  <div className="pk-gold-rule" style={{ marginBottom: 14 }} />
                   <h2
                     style={{
                       fontFamily: "var(--font-serif)",

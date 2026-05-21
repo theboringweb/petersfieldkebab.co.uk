@@ -13,16 +13,16 @@ export function Hero() {
       }}
       aria-label="Hero"
     >
-      {/* Background: warm ember radial + char gradient */}
+      {/* Background: warm gold radial on deep brand-charcoal */}
       <div
         aria-hidden
         style={{
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(75% 60% at 75% 35%, rgba(217,162,63,0.32) 0%, transparent 60%)," +
-            "radial-gradient(60% 70% at 78% 70%, rgba(197,57,30,0.45) 0%, transparent 60%)," +
-            "linear-gradient(180deg, #0f0a08 0%, #1a1614 100%)",
+            "radial-gradient(75% 60% at 75% 35%, rgba(248,192,40,0.20) 0%, transparent 60%)," +
+            "radial-gradient(60% 70% at 78% 70%, rgba(80,80,88,0.55) 0%, transparent 60%)," +
+            "linear-gradient(180deg, #1a1b20 0%, #2b2d33 100%)",
         }}
       />
       {/* Subtle char texture */}
@@ -49,8 +49,8 @@ export function Hero() {
           fontWeight: 700,
           letterSpacing: "0.18em",
           textTransform: "uppercase",
-          color: "var(--saffron)",
-          border: "1px solid var(--saffron)",
+          color: "var(--gold)",
+          border: "1px solid var(--gold)",
           borderRadius: 2,
           padding: "4px 8px",
           zIndex: 2,
@@ -79,7 +79,7 @@ export function Hero() {
               fontWeight: 600,
               letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color: "var(--saffron)",
+              color: "var(--gold)",
             }}
           >
             <span
@@ -87,10 +87,10 @@ export function Hero() {
               style={{
                 width: 24,
                 height: 1,
-                background: "var(--saffron)",
+                background: "var(--gold)",
               }}
             />
-            <span>Ocakbaşı · Charcoal grill</span>
+            <span>Charcoal grill</span>
           </div>
 
           <h1

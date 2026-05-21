@@ -1,34 +1,43 @@
 @import "tailwindcss";
 
 /* =========================================================
-   Petersfield Kebab House — Ocakbaşı v2 brand direction
-   Cream canvas default · ember accents · upright Fraunces
+   Petersfield Kebab House — v3 brand direction (logo-led)
+   Charcoal + gold sampled from the badge · cream canvas
    ========================================================= */
 
 :root {
-  /* ---------- Spice-route palette (v2) ---------- */
-  --canvas: #f2ebdd; /* lavash / warm flatbread */
-  --canvas-warm: #e8dec9; /* alternate section band */
-  --canvas-soft: #faf5e9; /* tile / card surface */
-  --surface-inverse: #1a1614; /* hero, photo bands, footer */
-  --surface-inverse-mid: #2a2420;
+  /* ---------- Brand (direct from the logo) ---------- */
+  --brand-charcoal: #505058; /* the disc */
+  --brand-gold: #f8c028; /* the spit + wordmark */
 
-  --ink: #1a1614;
-  --ink-muted: #6e5f4e;
-  --ink-soft: #8c7c66;
-  --ink-on-dark: #f2ebdd;
-  --ink-on-dark-soft: rgba(242, 235, 221, 0.72);
+  /* ---------- Surfaces (neutrals derived from brand charcoal) ---------- */
+  --canvas: #fbf8f1; /* default page surface — warm off-white */
+  --canvas-warm: #f4efe2; /* alternate section band */
+  --canvas-soft: #ffffff; /* card surface on canvas */
+  --surface: #ffffff;
+  --surface-inverse: #2b2d33; /* hero, photo bands, footer */
+  --surface-inverse-mid: #1f2126;
 
-  --ember: #c5391e; /* primary CTA, charcoal-heat red */
-  --ember-deep: #9a2a15;
-  --pomegranate: #6b1f2e; /* secondary accent / Hot chip */
-  --saffron: #d9a23f; /* hairlines, signature marker */
-  --parsley: #3c5a3b; /* Mild / Veggie chip */
+  /* ---------- Ink ---------- */
+  --ink: #1f2126; /* body on canvas — 15.2:1 AAA */
+  --ink-soft: #505058; /* brand charcoal for secondary text */
+  --ink-muted: #686870; /* captions, meta — 5.2:1 AA */
+  --ink-on-dark: #fbf8f1; /* text on inverse — 13.0:1 AAA */
+  --ink-on-dark-soft: rgba(251, 248, 241, 0.72);
 
-  --rule: rgba(26, 22, 20, 0.12);
-  --rule-strong: rgba(26, 22, 20, 0.22);
-  --rule-on-dark: rgba(242, 235, 221, 0.14);
-  --rule-saffron: rgba(217, 162, 63, 0.5);
+  /* ---------- Gold (CTA + signature accent) ---------- */
+  --gold: #f8c028;
+  --gold-deep: #d9a410; /* hover / pressed */
+  --gold-soft: #fce6a4; /* chips, highlights, signature markers */
+
+  /* ---------- Lines ---------- */
+  --rule: rgba(31, 33, 38, 0.12);
+  --rule-strong: rgba(31, 33, 38, 0.24);
+  --rule-on-dark: rgba(251, 248, 241, 0.14);
+  --rule-gold: rgba(248, 192, 40, 0.45);
+
+  /* ---------- One functional accent (form errors only) ---------- */
+  --danger: #a8341b;
 
   /* ---------- Type ---------- */
   --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
@@ -95,17 +104,22 @@ button {
 }
 
 ::selection {
-  background: var(--ember);
-  color: var(--ink-on-dark);
+  background: var(--gold);
+  color: var(--ink);
 }
 
-/* Focus rings — parsley green per brief */
+/* Focus rings — brand-charcoal on light, gold on dark */
 a:focus-visible,
 button:focus-visible,
 [tabindex]:focus-visible,
 iframe:focus-visible {
-  outline: 2px solid var(--parsley);
+  outline: 2px solid var(--ink-soft);
   outline-offset: 3px;
+}
+.section--inverse a:focus-visible,
+.section--inverse button:focus-visible,
+.pk-sticky-bar a:focus-visible {
+  outline-color: var(--gold);
 }
 
 /* =========================================================
@@ -146,10 +160,12 @@ iframe:focus-visible {
 .pk-eyebrow--on-dark {
   color: var(--ink-on-dark-soft);
 }
-.pk-eyebrow--saffron {
-  color: var(--saffron);
+.pk-eyebrow--gold {
+  color: var(--gold);
 }
 
+/* Brand wordmark used as fallback / accessibility label only — the badge
+   carries the brand visually. Keep the class for sr-only purposes. */
 .pk-wordmark {
   font-family: var(--font-serif);
   font-variation-settings:
@@ -221,15 +237,16 @@ h4 {
   transform: translateY(1px);
 }
 
-/* Primary — ember red. Use ≤3 per page. */
+/* Primary — brand gold on ink. Never white text on gold (1.7:1 fails). */
 .pk-btn--primary {
-  background: var(--ember);
-  color: #fff;
-  border-color: var(--ember);
+  background: var(--gold);
+  color: var(--ink);
+  border-color: var(--gold);
 }
 .pk-btn--primary:hover {
-  background: var(--ember-deep);
-  border-color: var(--ember-deep);
+  background: var(--gold-deep);
+  border-color: var(--gold-deep);
+  color: var(--ink);
 }
 
 /* Secondary on cream — ink outline */
@@ -243,14 +260,14 @@ h4 {
   color: var(--canvas);
 }
 
-/* Secondary on dark — cream outline */
+/* Secondary on dark — gold outline + gold text */
 .pk-btn--outline-on-dark {
-  color: var(--ink-on-dark);
-  border-color: var(--ink-on-dark);
+  color: var(--gold);
+  border-color: var(--gold);
   background: transparent;
 }
 .pk-btn--outline-on-dark:hover {
-  background: var(--ink-on-dark);
+  background: var(--gold);
   color: var(--ink);
 }
 
@@ -271,15 +288,15 @@ h4 {
     border-color 0.2s ease;
 }
 .pk-nav-link:hover {
-  color: var(--ember);
-  border-bottom-color: var(--ember);
+  color: var(--ink-soft);
+  border-bottom-color: var(--gold);
 }
 .pk-nav-link--on-dark {
   color: var(--ink-on-dark);
 }
 .pk-nav-link--on-dark:hover {
-  color: var(--saffron);
-  border-bottom-color: var(--saffron);
+  color: var(--gold);
+  border-bottom-color: var(--gold);
 }
 
 /* =========================================================
@@ -303,30 +320,30 @@ h4 {
   white-space: nowrap;
 }
 .pk-chip--hot {
-  background: var(--pomegranate);
-  border-color: var(--pomegranate);
-  color: #fff;
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--gold);
 }
 .pk-chip--mild,
 .pk-chip--veggie {
   background: transparent;
-  border-color: var(--parsley);
-  color: var(--parsley);
+  border-color: var(--ink-soft);
+  color: var(--ink-soft);
 }
 .pk-chip--signature {
   background: transparent;
-  border-color: var(--saffron);
-  color: var(--ember-deep);
+  border-color: var(--gold);
+  color: var(--ink);
 }
 .pk-chip--open {
-  background: var(--parsley);
-  border-color: var(--parsley);
-  color: #fff;
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
 }
 .pk-chip--closed {
   background: var(--ink-muted);
   border-color: var(--ink-muted);
-  color: #fff;
+  color: var(--canvas);
 }
 
 /* =========================================================
@@ -380,7 +397,7 @@ h4 {
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: 1rem;
-  color: var(--ember-deep);
+  color: var(--ink);
   white-space: nowrap;
 }
 .pk-dish-tile__meta {
@@ -424,20 +441,20 @@ h4 {
   font-family: var(--font-sans);
   font-size: 1.05rem;
   font-weight: 600;
-  color: var(--ember-deep);
+  color: var(--ink);
   white-space: nowrap;
 }
 
 /* =========================================================
-   Saffron hairline divider
+   Gold hairline divider
    ========================================================= */
-.pk-saffron-rule {
+.pk-gold-rule {
   width: 48px;
   height: 1px;
-  background: var(--saffron);
+  background: var(--gold);
   margin-bottom: 14px;
 }
-.pk-saffron-rule--center {
+.pk-gold-rule--center {
   margin-left: auto;
   margin-right: auto;
 }
@@ -477,27 +494,30 @@ h4 {
   background:
     radial-gradient(
       120% 80% at 70% 20%,
-      rgba(217, 162, 63, 0.45) 0%,
+      rgba(248, 192, 40, 0.32) 0%,
       transparent 55%
     ),
     radial-gradient(
       80% 60% at 20% 80%,
-      rgba(197, 57, 30, 0.4) 0%,
+      rgba(80, 80, 88, 0.6) 0%,
       transparent 60%
-    ), linear-gradient(160deg, #4a2410 0%, #1a1614 80%);
+    ), linear-gradient(160deg, #3a3c44 0%, #1f2126 80%);
   color: var(--ink-on-dark);
 }
 .pk-photo--ember {
   background:
-    radial-gradient(100% 100% at 50% 100%, #c5391e 0%, transparent 60%),
-    radial-gradient(80% 80% at 50% 20%, #2a1410 0%, #0d0908 100%);
+    radial-gradient(
+      100% 100% at 50% 100%,
+      rgba(248, 192, 40, 0.55) 0%,
+      transparent 60%
+    ), radial-gradient(80% 80% at 50% 20%, #2b2d33 0%, #14151a 100%);
   color: var(--ink-on-dark);
 }
 .pk-photo--cream {
   background:
     radial-gradient(
       120% 80% at 30% 30%,
-      rgba(217, 162, 63, 0.2) 0%,
+      rgba(248, 192, 40, 0.2) 0%,
       transparent 60%
     ), linear-gradient(180deg, var(--canvas-soft) 0%, var(--canvas-warm) 100%);
   color: var(--ink);
@@ -555,7 +575,7 @@ h4 {
 
 /* For real photos when they arrive — apply this filter for warm grade */
 .pk-photo--graded img {
-  filter: saturate(1.08) contrast(1.06) brightness(0.98) hue-rotate(-2deg);
+  filter: saturate(1.08) contrast(1.06) brightness(0.98);
 }
 
 /* =========================================================
@@ -591,6 +611,21 @@ h4 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2.4rem;
+}
+
+/* =========================================================
+   Brand lockup (logo wrapper)
+   ========================================================= */
+.pk-logo-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  line-height: 0;
+}
+.pk-logo-img {
+  display: block;
+  width: auto;
+  height: auto;
 }
 
 /* =========================================================
