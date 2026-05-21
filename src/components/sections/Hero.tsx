@@ -1,98 +1,142 @@
-"use client";
-
-import {
-  Button,
-  PhotoPlaceholder,
-  StarRating,
-  Wrap,
-} from "@/components/primitives";
+import { Button, OpenStatus, Wrap } from "@/components/primitives";
 
 export function Hero() {
   return (
     <section
       id="top"
       style={{
-        background:
-          "radial-gradient(120% 90% at 50% 0%, var(--pk-charcoal-mid), var(--pk-charcoal))",
-        color: "var(--pk-cream)",
         position: "relative",
         overflow: "hidden",
-        padding: "clamp(3rem, 8vw, 6rem) 0 clamp(3rem, 6vw, 5rem)",
+        background: "var(--surface-inverse)",
+        color: "var(--ink-on-dark)",
+        minHeight: "min(78vh, 720px)",
       }}
+      aria-label="Hero"
     >
-      <Wrap>
-        <div className="hero-grid">
-          <div style={{ maxWidth: 560 }}>
-            <div
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: ".72rem",
-                fontWeight: 600,
-                letterSpacing: ".26em",
-                textTransform: "uppercase",
-                color: "var(--pk-amber)",
-                marginBottom: "1.2rem",
-              }}
-            >
-              Charcoal grill · Petersfield
-            </div>
+      {/* Background: warm ember radial + char gradient */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(75% 60% at 75% 35%, rgba(217,162,63,0.32) 0%, transparent 60%)," +
+            "radial-gradient(60% 70% at 78% 70%, rgba(197,57,30,0.45) 0%, transparent 60%)," +
+            "linear-gradient(180deg, #0f0a08 0%, #1a1614 100%)",
+        }}
+      />
+      {/* Subtle char texture */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage:
+            "repeating-linear-gradient(45deg, transparent 0 14px, rgba(255,255,255,0.018) 14px 16px)",
+          mixBlendMode: "screen",
+        }}
+      />
+      {/* Concept-photo label, anchored top-right */}
+      <div
+        role="img"
+        aria-label="Concept placeholder — full-bleed hero of doner being carved"
+        style={{
+          position: "absolute",
+          top: 16,
+          right: 16,
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.62rem",
+          fontWeight: 700,
+          letterSpacing: "0.18em",
+          textTransform: "uppercase",
+          color: "var(--saffron)",
+          border: "1px solid var(--saffron)",
+          borderRadius: 2,
+          padding: "4px 8px",
+          zIndex: 2,
+          opacity: 0.85,
+        }}
+      >
+        Concept placeholder · Doner being carved
+      </div>
 
-            <h1
+      <Wrap
+        style={{
+          position: "relative",
+          zIndex: 1,
+          padding: "clamp(4rem, 9vw, 7rem) 0 clamp(3rem, 6vw, 5rem)",
+        }}
+      >
+        <div style={{ maxWidth: 720 }}>
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              marginBottom: "1.5rem",
+              fontFamily: "var(--font-sans)",
+              fontSize: "0.7rem",
+              fontWeight: 600,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: "var(--saffron)",
+            }}
+          >
+            <span
+              aria-hidden
               style={{
-                fontFamily: "var(--font-serif)",
-                fontVariationSettings: "'SOFT' 30, 'WONK' 1, 'opsz' 144",
-                fontWeight: 400,
-                fontSize: "clamp(2.4rem, 5.5vw, 3.8rem)",
-                lineHeight: 1.05,
-                letterSpacing: "-.02em",
-                textWrap: "pretty",
+                width: 24,
+                height: 1,
+                background: "var(--saffron)",
               }}
-            >
-              Petersfield's kebab house since [year].
-            </h1>
-
-            <p
-              style={{
-                marginTop: "1.4rem",
-                color: "rgba(245,239,230,.78)",
-                fontSize: "1.1rem",
-                lineHeight: 1.6,
-                maxWidth: 460,
-              }}
-            >
-              Charcoal grill on Chapel Street. Open late, every day.
-            </p>
-
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: ".75rem",
-                marginTop: "2rem",
-              }}
-            >
-              <Button variant="primary" href="https://connect.poscraft.co.uk/">
-                Order now
-              </Button>
-              <Button variant="ghost-dark" href="tel:01730263348">
-                Call 01730 263348
-              </Button>
-            </div>
-
-            <div style={{ marginTop: "2.2rem" }}>
-              <StarRating rating={4.8} count={535} />
-            </div>
+            />
+            <span>Ocakbaşı · Charcoal grill</span>
           </div>
 
-          <div style={{ position: "relative" }}>
-            <PhotoPlaceholder
-              kind="hero"
-              aspect="4/3"
-              label="Charcoal-grilled lamb doner, carved fresh"
-              note="Warm, low-key food photography — concept placeholder pending client photoshoot"
-              kicker="Hero"
-              style={{ borderRadius: 4 }}
-            />
+          <h1
+            style={{
+              fontFamily: "var(--font-serif)",
+              fontWeight: 600,
+              fontSize: "clamp(2.6rem, 6.5vw, 4.6rem)",
+              lineHeight: 1.05,
+              letterSpacing: "-0.02em",
+              textWrap: "pretty",
+              color: "var(--ink-on-dark)",
+            }}
+          >
+            Petersfield's kebab house since 2008.
+          </h1>
+
+          <p
+            style={{
+              marginTop: "1.4rem",
+              color: "var(--ink-on-dark-soft)",
+              fontSize: "1.2rem",
+              lineHeight: 1.55,
+              maxWidth: 560,
+            }}
+          >
+            Charcoal grill on Chapel Street. Open late, every day.
+          </p>
+
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "0.75rem",
+              marginTop: "2.2rem",
+            }}
+          >
+            <Button variant="primary" href="https://connect.poscraft.co.uk/">
+              Order now
+            </Button>
+            <Button variant="outline-on-dark" href="tel:01730263348">
+              <span className="pk-tnum">Call 01730 263348</span>
+            </Button>
+          </div>
+
+          <div style={{ marginTop: "2rem" }}>
+            <OpenStatus />
           </div>
         </div>
       </Wrap>

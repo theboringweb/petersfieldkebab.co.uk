@@ -19,21 +19,24 @@ export function Section({
   id,
   children,
   band,
-  dark,
+  inverse,
+  tight,
   label,
   style,
 }: {
   id?: string;
   children: ReactNode;
   band?: boolean;
-  dark?: boolean;
+  inverse?: boolean;
+  tight?: boolean;
   label?: string;
   style?: CSSProperties;
 }) {
   const classes = [
     "section",
     band ? "section--band" : "",
-    dark ? "section--dark" : "",
+    inverse ? "section--inverse" : "",
+    tight ? "section--tight" : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -52,13 +55,24 @@ export function Section({
 /* ---------- Eyebrow / Section head ---------- */
 export function Eyebrow({
   children,
+  onDark,
+  saffron,
   style,
 }: {
   children: ReactNode;
+  onDark?: boolean;
+  saffron?: boolean;
   style?: CSSProperties;
 }) {
+  const classes = [
+    "pk-eyebrow",
+    onDark ? "pk-eyebrow--on-dark" : "",
+    saffron ? "pk-eyebrow--saffron" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
   return (
-    <div className="pk-eyebrow" style={style}>
+    <div className={classes} style={style}>
       {children}
     </div>
   );
@@ -70,6 +84,7 @@ export function SectionHead({
   lead,
   center,
   onDark,
+  saffronRule = true,
   maxWidth = 680,
 }: {
   eyebrow?: ReactNode;
@@ -77,31 +92,38 @@ export function SectionHead({
   lead?: ReactNode;
   center?: boolean;
   onDark?: boolean;
+  saffronRule?: boolean;
   maxWidth?: number;
 }) {
   return (
     <div
       style={{
         maxWidth,
-        marginBottom: "3rem",
+        marginBottom: "2.5rem",
         marginLeft: center ? "auto" : undefined,
         marginRight: center ? "auto" : undefined,
         textAlign: center ? "center" : undefined,
       }}
     >
+      {saffronRule ? (
+        <div
+          className={`pk-saffron-rule${center ? " pk-saffron-rule--center" : ""}`}
+        />
+      ) : null}
       {eyebrow ? (
-        <Eyebrow style={{ marginBottom: "1rem" }}>{eyebrow}</Eyebrow>
+        <Eyebrow onDark={onDark} style={{ marginBottom: "0.75rem" }}>
+          {eyebrow}
+        </Eyebrow>
       ) : null}
       <h2
         style={{
           fontFamily: "var(--font-serif)",
-          fontVariationSettings: "'SOFT' 20, 'WONK' 1, 'opsz' 144",
-          fontWeight: 400,
-          fontSize: "clamp(2.2rem, 5vw, 3.2rem)",
-          letterSpacing: "-.015em",
-          lineHeight: 1.08,
+          fontWeight: 600,
+          fontSize: "clamp(2rem, 4.5vw, 2.8rem)",
+          letterSpacing: "-0.015em",
+          lineHeight: 1.1,
           textWrap: "pretty",
-          color: onDark ? "var(--pk-amber-soft)" : "var(--pk-ink)",
+          color: onDark ? "var(--ink-on-dark)" : "var(--ink)",
         }}
       >
         {title}
@@ -109,8 +131,8 @@ export function SectionHead({
       {lead ? (
         <p
           style={{
-            marginTop: "1.1rem",
-            color: onDark ? "rgba(245,239,230,.78)" : "var(--pk-ink-soft)",
+            marginTop: "1rem",
+            color: onDark ? "var(--ink-on-dark-soft)" : "var(--ink-muted)",
             fontSize: "1.05rem",
             lineHeight: 1.6,
             textWrap: "pretty",
@@ -124,7 +146,7 @@ export function SectionHead({
 }
 
 /* ---------- Button ---------- */
-type ButtonVariant = "primary" | "ghost-dark" | "ghost-light";
+type ButtonVariant = "primary" | "outline" | "outline-on-dark";
 export function Button({
   children,
   variant = "primary",
@@ -157,12 +179,11 @@ export function TextLink({
       style={{
         fontFamily: "var(--font-sans)",
         fontWeight: 600,
-        fontSize: ".95rem",
-        color: onDark ? "var(--pk-amber-soft)" : "var(--pk-oxblood)",
+        fontSize: "0.95rem",
+        color: onDark ? "var(--ink-on-dark)" : "var(--ember-deep)",
         textDecoration: "none",
-        borderBottom: "1px solid var(--pk-amber)",
+        borderBottom: `1px solid ${onDark ? "var(--saffron)" : "var(--ember-deep)"}`,
         paddingBottom: 2,
-        letterSpacing: ".02em",
       }}
     >
       {children}
@@ -170,214 +191,238 @@ export function TextLink({
   );
 }
 
-/* ---------- Photo placeholder ---------- */
-type PhotoKind = "hero" | "dish" | "place" | "people" | "detail";
-const PHOTO_GRADIENTS: Record<PhotoKind, string> = {
-  hero: "radial-gradient(120% 90% at 30% 20%, #5c2a14 0%, #1a1614 70%, #0f0d0c 100%)",
-  dish: "linear-gradient(160deg, #3a2010, #1a1208)",
-  place: "linear-gradient(160deg, #4a2e18, #1a1208)",
-  people: "linear-gradient(160deg, #3a2820, #1a1208)",
-  detail: "linear-gradient(160deg, #2a2014, #120d07)",
-};
+/* ---------- Chip ---------- */
+type ChipTone = "default" | "hot" | "mild" | "veggie" | "signature";
+export function Chip({
+  children,
+  tone = "default",
+}: {
+  children: ReactNode;
+  tone?: ChipTone;
+}) {
+  const cls = tone === "default" ? "pk-chip" : `pk-chip pk-chip--${tone}`;
+  return <span className={cls}>{children}</span>;
+}
 
+/* ---------- Flame rule (single ornament) ---------- */
+export function FlameRule({ onDark = false }: { onDark?: boolean }) {
+  const colour = onDark ? "var(--saffron)" : "var(--ember)";
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 18,
+        padding: "1.5rem 0",
+      }}
+      aria-hidden
+    >
+      <span
+        style={{
+          flex: 1,
+          height: 1,
+          background: onDark ? "var(--rule-on-dark)" : "var(--rule)",
+          maxWidth: 220,
+        }}
+      />
+      <svg
+        width="22"
+        height="28"
+        viewBox="0 0 22 28"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ flex: "none" }}
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path
+          d="M11 2 C 13 7, 18 9, 18 16 C 18 22, 14.5 26, 11 26 C 7.5 26, 4 22, 4 16 C 4 12, 6 11, 7 8 C 8.2 11, 9 12, 11 2 Z"
+          fill={colour}
+          opacity="0.92"
+        />
+        <path
+          d="M11 9 C 12 12, 14.5 13, 14.5 17 C 14.5 20, 12.8 22.5, 11 22.5 C 9.2 22.5, 7.5 20, 7.5 17 C 7.5 14.5, 9 13, 11 9 Z"
+          fill={onDark ? "var(--ember)" : "var(--pomegranate)"}
+          opacity="0.85"
+        />
+      </svg>
+      <span
+        style={{
+          flex: 1,
+          height: 1,
+          background: onDark ? "var(--rule-on-dark)" : "var(--rule)",
+          maxWidth: 220,
+        }}
+      />
+    </div>
+  );
+}
+
+/* ---------- Photo placeholder (cuisine-coded, concept-honest) ---------- */
+type PhotoTone = "warm" | "ember" | "cream";
 export function PhotoPlaceholder({
-  kind = "dish",
+  tone = "warm",
   label,
   note,
   aspect = "4/3",
-  kicker,
+  alt,
   style,
 }: {
-  kind?: PhotoKind;
+  tone?: PhotoTone;
   label?: ReactNode;
   note?: ReactNode;
   aspect?: string;
-  kicker?: string;
+  alt: string;
   style?: CSSProperties;
 }) {
   return (
     <figure
-      style={{
-        aspectRatio: aspect,
-        position: "relative",
-        overflow: "hidden",
-        border: "1px solid var(--pk-rule)",
-        background: PHOTO_GRADIENTS[kind],
-        margin: 0,
-        ...style,
-      }}
+      className={`pk-photo pk-photo--${tone}`}
+      role="img"
+      aria-label={`Concept placeholder — ${alt}`}
+      style={{ aspectRatio: aspect, ...style }}
     >
-      <div
-        aria-hidden
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(232,163,61,0.03) 10px, rgba(232,163,61,0.03) 20px)",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
-          padding: 24,
-          gap: 8,
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--font-sans)",
-            fontSize: ".6rem",
-            letterSpacing: ".28em",
-            textTransform: "uppercase",
-            color: "var(--pk-amber)",
-            fontWeight: 700,
-            paddingBottom: 6,
-            borderBottom: "1px solid rgba(232,163,61,.35)",
-            marginBottom: 6,
-          }}
-        >
-          Photography placeholder
-        </div>
-        {label ? (
-          <div
-            style={{
-              fontFamily: "var(--font-serif)",
-              fontStyle: "italic",
-              fontVariationSettings: "'opsz' 144, 'SOFT' 30",
-              fontSize: "clamp(1.1rem, 2.3vw, 1.5rem)",
-              color: "var(--pk-cream)",
-              lineHeight: 1.25,
-              maxWidth: "78%",
-              textWrap: "balance",
-            }}
-          >
-            {label}
-          </div>
-        ) : null}
-        {note ? (
-          <div
-            style={{
-              marginTop: 4,
-              fontFamily: "var(--font-sans)",
-              fontSize: ".72rem",
-              color: "rgba(245,239,230,.62)",
-              lineHeight: 1.55,
-              maxWidth: "72%",
-              letterSpacing: ".02em",
-              textWrap: "pretty",
-            }}
-          >
-            {note}
-          </div>
-        ) : null}
+      <div className="pk-photo__overlay" />
+      <div className="pk-photo__caption">
+        <span className="pk-photo__tag">Concept placeholder</span>
+        {label ? <div className="pk-photo__title">{label}</div> : null}
+        {note ? <div className="pk-photo__note">{note}</div> : null}
       </div>
-      {kicker ? (
-        <figcaption
-          style={{
-            position: "absolute",
-            bottom: 12,
-            left: 18,
-            fontFamily: "var(--font-sans)",
-            fontSize: ".6rem",
-            letterSpacing: ".2em",
-            textTransform: "uppercase",
-            color: "rgba(232,163,61,.85)",
-            fontWeight: 700,
-          }}
-        >
-          {kicker}
-        </figcaption>
-      ) : null}
     </figure>
   );
 }
 
-/* ---------- Heritage badge ---------- */
-export function HeritageBadge({
-  year = 2008,
-  town = "Petersfield",
-  size = 108,
-  tone = "light",
+/* ---------- Dish tile (homepage 6-up grid) ---------- */
+export function DishTile({
+  name,
+  price,
+  alt,
+  caption,
+  chips = [],
+  tone = "warm",
 }: {
-  year?: number;
-  town?: string;
-  size?: number;
-  tone?: "light" | "dark";
+  name: string;
+  price: string;
+  alt: string;
+  caption?: string;
+  chips?: { label: string; tone?: ChipTone }[];
+  tone?: PhotoTone;
 }) {
-  const dark = tone === "dark";
   return (
+    <article className="pk-dish-tile">
+      <PhotoPlaceholder
+        tone={tone}
+        aspect="4/3"
+        alt={alt}
+        label={name}
+        note={caption}
+        style={{ borderRadius: 0 }}
+      />
+      <div className="pk-dish-tile__body">
+        <div className="pk-dish-tile__title">
+          <div className="pk-dish-tile__name">{name}</div>
+          <div className="pk-dish-tile__price pk-tnum">{price}</div>
+        </div>
+        {chips.length > 0 ? (
+          <div className="pk-dish-tile__meta">
+            {chips.map((c) => (
+              <Chip key={c.label} tone={c.tone}>
+                {c.label}
+              </Chip>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    </article>
+  );
+}
+
+/* ---------- Trust strip item ---------- */
+export function TrustItem({
+  kicker,
+  headline,
+  detail,
+  href,
+}: {
+  kicker: string;
+  headline: ReactNode;
+  detail: ReactNode;
+  href?: string;
+}) {
+  const inner = (
     <div
       style={{
-        width: size,
-        height: size,
-        borderRadius: "50%",
-        border: dark
-          ? "1px solid rgba(232,163,61,.45)"
-          : "1px solid var(--pk-amber)",
-        background: dark ? "transparent" : "var(--bg-elev)",
-        boxShadow: dark
-          ? "inset 0 0 0 4px transparent, inset 0 0 0 5px rgba(232,163,61,.25)"
-          : "inset 0 0 0 4px var(--bg-elev), inset 0 0 0 5px rgba(232,163,61,.4)",
-        display: "inline-flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 1,
-        flex: "none",
-        position: "relative",
+        padding: "1.5rem 1.25rem",
+        textAlign: "center",
+        borderRight: "1px solid var(--rule)",
+        height: "100%",
       }}
+      className="pk-trust-item"
     >
       <div
         style={{
           fontFamily: "var(--font-sans)",
-          fontSize: size * 0.075,
-          letterSpacing: ".22em",
+          fontSize: "0.66rem",
           fontWeight: 700,
-          color: dark ? "var(--pk-amber-soft)" : "var(--pk-amber)",
+          letterSpacing: "0.18em",
+          textTransform: "uppercase",
+          color: "var(--ink-muted)",
+          marginBottom: 8,
         }}
       >
-        EST.
+        {kicker}
       </div>
       <div
         style={{
           fontFamily: "var(--font-serif)",
-          fontSize: size * 0.27,
-          lineHeight: 1,
-          color: dark ? "var(--pk-cream)" : "var(--pk-ink)",
-          fontVariationSettings: "'opsz' 144, 'SOFT' 30",
+          fontWeight: 600,
+          fontSize: "1.25rem",
+          color: "var(--ink)",
+          lineHeight: 1.2,
         }}
       >
-        {year}
+        {headline}
       </div>
       <div
         style={{
+          marginTop: 4,
           fontFamily: "var(--font-sans)",
-          fontSize: size * 0.065,
-          letterSpacing: ".16em",
-          textTransform: "uppercase",
-          color: dark ? "rgba(245,239,230,.7)" : "var(--pk-ink-soft)",
-          fontWeight: 600,
+          fontSize: "0.82rem",
+          color: "var(--ink-muted)",
         }}
       >
-        {town}
+        {detail}
       </div>
     </div>
   );
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: "none", color: "inherit" }}
+      >
+        {inner}
+      </a>
+    );
+  }
+  return inner;
 }
 
 /* ---------- Star rating ---------- */
 export function StarRating({
   rating = 4.8,
   count = 535,
+  compact = false,
+  onDark = false,
 }: {
   rating?: number;
   count?: number;
+  compact?: boolean;
+  onDark?: boolean;
 }) {
   return (
     <div
@@ -386,60 +431,193 @@ export function StarRating({
         alignItems: "center",
         gap: 8,
         fontFamily: "var(--font-sans)",
-        fontSize: ".88rem",
-        color: "var(--pk-ink-soft)",
+        fontSize: compact ? "0.82rem" : "0.92rem",
+        color: onDark ? "var(--ink-on-dark-soft)" : "var(--ink-muted)",
       }}
     >
-      <span style={{ color: "var(--pk-amber)", fontSize: "1.05rem" }}>★</span>
-      <span style={{ fontWeight: 600 }}>{rating.toFixed(1)}</span>
-      <span style={{ color: "var(--pk-ink-soft)", opacity: 0.7 }}>·</span>
+      <span
+        style={{
+          color: "var(--saffron)",
+          fontSize: compact ? "1rem" : "1.1rem",
+          letterSpacing: "0.05em",
+        }}
+        aria-hidden
+      >
+        ★★★★★
+      </span>
+      <span style={{ fontWeight: 600 }} className="pk-tnum">
+        {rating.toFixed(1)}
+      </span>
+      <span aria-hidden style={{ opacity: 0.55 }}>
+        ·
+      </span>
       <span>{count.toLocaleString("en-GB")} Google reviews</span>
     </div>
   );
 }
 
-/* ---------- Opening hours with live status ---------- */
+/* ---------- Opening hours + live status ---------- */
 const HOURS: Record<
   number,
-  { day: string; hours: string; open: string; close: string }
+  {
+    day: string;
+    short: string;
+    hours: string;
+    openMin: number;
+    closeMin: number;
+  }
 > = {
-  0: { day: "Sunday", hours: "12pm – 10pm", open: "12:00", close: "22:00" },
-  1: { day: "Monday", hours: "11am – 11pm", open: "11:00", close: "23:00" },
-  2: { day: "Tuesday", hours: "11am – 11pm", open: "11:00", close: "23:00" },
-  3: { day: "Wednesday", hours: "11am – 11pm", open: "11:00", close: "23:00" },
-  4: { day: "Thursday", hours: "11am – 11pm", open: "11:00", close: "23:00" },
-  5: { day: "Friday", hours: "11am – 12am", open: "11:00", close: "00:00" },
-  6: { day: "Saturday", hours: "11am – 12am", open: "11:00", close: "00:00" },
+  0: {
+    day: "Sunday",
+    short: "Sun",
+    hours: "12pm – 10pm",
+    openMin: 12 * 60,
+    closeMin: 22 * 60,
+  },
+  1: {
+    day: "Monday",
+    short: "Mon",
+    hours: "11am – 11pm",
+    openMin: 11 * 60,
+    closeMin: 23 * 60,
+  },
+  2: {
+    day: "Tuesday",
+    short: "Tue",
+    hours: "11am – 11pm",
+    openMin: 11 * 60,
+    closeMin: 23 * 60,
+  },
+  3: {
+    day: "Wednesday",
+    short: "Wed",
+    hours: "11am – 11pm",
+    openMin: 11 * 60,
+    closeMin: 23 * 60,
+  },
+  4: {
+    day: "Thursday",
+    short: "Thu",
+    hours: "11am – 11pm",
+    openMin: 11 * 60,
+    closeMin: 23 * 60,
+  },
+  5: {
+    day: "Friday",
+    short: "Fri",
+    hours: "11am – 1am",
+    openMin: 11 * 60,
+    closeMin: 25 * 60, // 1am next day
+  },
+  6: {
+    day: "Saturday",
+    short: "Sat",
+    hours: "11am – 1am",
+    openMin: 11 * 60,
+    closeMin: 25 * 60,
+  },
 };
 
-export function OpeningHours() {
-  const now = new Date();
-  const dayIndex = now.getDay();
+function formatClose(minutes: number): string {
+  const m = minutes % (24 * 60);
+  const hour = Math.floor(m / 60);
+  const display =
+    hour === 0
+      ? "midnight"
+      : hour === 12
+        ? "12pm"
+        : hour > 12
+          ? `${hour - 12}pm`
+          : `${hour}am`;
+  return display;
+}
 
+function computeStatus(now: Date) {
+  const day = now.getDay();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  const today = HOURS[day];
+  // Today is still open
+  if (nowMin >= today.openMin && nowMin < today.closeMin) {
+    return {
+      open: true,
+      label: `Open now · closes ${formatClose(today.closeMin)}`,
+    };
+  }
+  // Yesterday's late-night spillover (close > 24h)
+  const yesterday = HOURS[(day + 6) % 7];
+  if (yesterday.closeMin > 24 * 60 && nowMin < yesterday.closeMin - 24 * 60) {
+    return {
+      open: true,
+      label: `Open now · closes ${formatClose(yesterday.closeMin)}`,
+    };
+  }
+  // Closed — show next opening
+  if (nowMin < today.openMin) {
+    return {
+      open: false,
+      label: `Closed · opens ${formatOpen(today.openMin)}`,
+    };
+  }
+  const tomorrow = HOURS[(day + 1) % 7];
+  return {
+    open: false,
+    label: `Closed · opens ${tomorrow.short} ${formatOpen(tomorrow.openMin)}`,
+  };
+}
+
+function formatOpen(minutes: number): string {
+  const hour = Math.floor(minutes / 60);
+  return hour === 12 ? "12pm" : hour > 12 ? `${hour - 12}pm` : `${hour}am`;
+}
+
+export function OpenStatus() {
+  const status = computeStatus(new Date());
+  return (
+    <span
+      className={`pk-chip pk-chip--${status.open ? "open" : "closed"}`}
+      style={{ fontSize: "0.7rem" }}
+      aria-live="polite"
+    >
+      <span
+        aria-hidden
+        style={{
+          display: "inline-block",
+          width: 6,
+          height: 6,
+          borderRadius: "50%",
+          background: status.open ? "#fff" : "rgba(255,255,255,.7)",
+          marginRight: 6,
+          boxShadow: status.open ? "0 0 0 3px rgba(255,255,255,0.15)" : "none",
+        }}
+      />
+      {status.label}
+    </span>
+  );
+}
+
+export function OpeningHours({ onDark = false }: { onDark?: boolean }) {
+  const today = new Date().getDay();
   return (
     <div>
       <div
+        className="pk-eyebrow"
         style={{
-          fontSize: ".66rem",
-          letterSpacing: ".28em",
-          textTransform: "uppercase",
-          fontWeight: 700,
-          color: "var(--pk-amber)",
-          marginBottom: ".8rem",
+          color: onDark ? "var(--saffron)" : "var(--ink-muted)",
+          marginBottom: 12,
         }}
       >
         Opening hours
       </div>
       <div
         style={{
-          fontFamily: "var(--font-serif)",
-          lineHeight: 1.65,
-          color: "var(--fg-on-dark)",
+          fontFamily: "var(--font-sans)",
+          fontSize: "0.95rem",
+          lineHeight: 1.7,
+          color: onDark ? "var(--ink-on-dark)" : "var(--ink)",
         }}
       >
         {Object.entries(HOURS).map(([idx, h]) => {
-          const i = Number(idx);
-          const isToday = i === dayIndex;
+          const isToday = Number(idx) === today;
           return (
             <div
               key={idx}
@@ -447,22 +625,21 @@ export function OpeningHours() {
                 display: "flex",
                 justifyContent: "space-between",
                 gap: "1rem",
-                paddingBottom: 6,
-                borderBottom: isToday
-                  ? "1px solid rgba(232,163,61,.25)"
-                  : "1px solid transparent",
-                marginBottom: isToday ? 6 : 0,
+                padding: "6px 0",
+                borderBottom: `1px solid ${onDark ? "var(--rule-on-dark)" : "var(--rule)"}`,
+                fontWeight: isToday ? 600 : 400,
+                color: isToday
+                  ? onDark
+                    ? "var(--saffron)"
+                    : "var(--ember-deep)"
+                  : "inherit",
               }}
             >
-              <span
-                style={{
-                  fontWeight: isToday ? 600 : 400,
-                  color: isToday ? "var(--pk-amber-soft)" : "inherit",
-                }}
-              >
+              <span>
                 {h.day}
+                {isToday ? " · today" : ""}
               </span>
-              <span>{h.hours}</span>
+              <span className="pk-tnum">{h.hours}</span>
             </div>
           );
         })}

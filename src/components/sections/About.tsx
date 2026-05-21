@@ -1,5 +1,4 @@
 import {
-  HeritageBadge,
   PhotoPlaceholder,
   Section,
   SectionHead,
@@ -8,79 +7,65 @@ import {
 
 export function About() {
   return (
-    <Section id="about" band label="About">
+    <Section id="about" label="About">
       <Wrap>
         <div className="about-grid">
           <div>
             <PhotoPlaceholder
-              kind="place"
-              aspect="4/3"
-              label="The storefront on Chapel Street at dusk"
-              note="Placeholder — real storefront photo to come after client confirmation"
-              kicker="Place"
+              tone="ember"
+              aspect="5/4"
+              alt="Charcoal grill in action — glowing embers, skewers laid across, hand turning a skewer"
+              label="The grill, mid-service"
+              note="Mid-section anchor photo — to come from the upcoming shoot"
               style={{ borderRadius: 4 }}
             />
           </div>
 
           <div style={{ maxWidth: 520 }}>
-            <div
+            <SectionHead
+              eyebrow="About"
+              title="Same grill. Same butcher. Same regulars."
+              lead={null}
+              maxWidth={520}
+            />
+            <p
               style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "1.5rem",
-                marginBottom: "1.5rem",
+                color: "var(--ink)",
+                fontFamily: "var(--font-serif)",
+                fontWeight: 500,
+                fontSize: "1.25rem",
+                lineHeight: 1.45,
+                textWrap: "pretty",
               }}
             >
-              <HeritageBadge year={2008} size={96} />
-              <div
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: ".72rem",
-                  fontWeight: 600,
-                  letterSpacing: ".18em",
-                  textTransform: "uppercase",
-                  color: "var(--pk-amber)",
-                }}
-              >
-                Serving Petersfield
-                <br />
-                since [year]
-              </div>
-            </div>
-
-            <SectionHead
-              eyebrow="Our story"
-              title="A local kitchen, built on charcoal and consistency"
-              lead="Fifteen years on Chapel Street, grilling kebabs the same way: over charcoal, to order, with fresh bread made daily."
-            />
+              Since 2008. Family-run, charcoal-grilled, open till 1am at the
+              weekend.
+            </p>
 
             <p
               style={{
-                color: "var(--pk-ink-soft)",
+                color: "var(--ink-muted)",
                 fontSize: "1rem",
                 lineHeight: 1.7,
                 marginTop: "1.2rem",
               }}
             >
-              {/* TBC: copy from Grace */}
-              The family-run kitchen behind Petersfield's Kebab House has been a
-              late-night fixture for locals and a warm stop for passers-through.
-              Every mixed grill is cooked over charcoal. Every wrap is rolled to
-              order. The menu hasn't changed much in fifteen years — because it
-              hasn't needed to.
+              We've been on Chapel Street for the best part of two decades. The
+              menu hasn't changed much — because it doesn't need to. Bread is
+              made fresh. Lamb is butchered the same way it's always been.
+              Everything off the grill is cooked to order.
             </p>
 
             <p
               style={{
-                color: "var(--pk-ink-soft)",
+                color: "var(--ink-muted)",
                 fontSize: "1rem",
                 lineHeight: 1.7,
                 marginTop: "1rem",
               }}
             >
-              {/* TBC: copy from Grace */}
-              We're proud of what we do simply: good meat, good bread, fair
-              prices, and a team that knows most customers by name.
+              If you've been in before, you'll know. If you haven't — come and
+              say hi.
             </p>
           </div>
         </div>

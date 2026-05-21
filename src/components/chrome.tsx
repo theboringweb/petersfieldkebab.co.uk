@@ -10,10 +10,8 @@ export function Header() {
   return (
     <header
       style={{
-        background:
-          "radial-gradient(140% 120% at 50% 0%, var(--pk-charcoal-mid), var(--pk-charcoal))",
-        color: "var(--pk-cream)",
-        borderBottom: "1px solid rgba(232,163,61,.15)",
+        background: "var(--canvas)",
+        borderBottom: "1px solid var(--rule)",
         position: "relative",
         zIndex: 5,
       }}
@@ -23,67 +21,72 @@ export function Header() {
         style={{
           maxWidth: "var(--wrap-max)",
           margin: "0 auto",
-          padding: "18px 40px 22px",
+          padding: "20px 40px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: "1.5rem",
+          flexWrap: "wrap",
         }}
       >
-        {/* utility strip */}
-        <div
-          className="hdr-utility"
+        <Link
+          href="/"
+          className="pk-wordmark"
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            fontFamily: "var(--font-sans)",
-            fontSize: ".68rem",
-            letterSpacing: ".18em",
-            textTransform: "uppercase",
-            fontWeight: 600,
-            color: "rgba(245,239,230,.6)",
+            fontSize: "clamp(1.2rem, 2.4vw, 1.5rem)",
+            display: "inline-flex",
+            alignItems: "baseline",
+            gap: 10,
           }}
         >
-          <a
-            href="tel:01730263348"
-            style={{ color: "inherit", textDecoration: "none" }}
-          >
-            T ·{" "}
-            <span style={{ color: "var(--pk-amber-soft)" }}>01730 263348</span>
-          </a>
-          <nav aria-label="Primary" style={{ display: "flex", gap: "1.8rem" }}>
-            {NAV_ITEMS.map((item) => (
-              <Link key={item.href} href={item.href} className="pk-nav-link">
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        {/* wordmark block */}
-        <div style={{ textAlign: "center", marginTop: 14 }}>
-          <Link
-            href="/"
-            className="pk-wordmark"
+          <span>Petersfield Kebab</span>
+          <span
+            aria-hidden
             style={{
+              width: 1,
+              height: 18,
+              background: "var(--rule-strong)",
               display: "inline-block",
-              fontSize: "clamp(1.35rem, 3vw, 1.8rem)",
             }}
-          >
-            Petersfield's Kebab House
-          </Link>
-          <div
+          />
+          <span
             style={{
               fontFamily: "var(--font-sans)",
-              fontSize: ".6rem",
-              letterSpacing: ".38em",
+              fontWeight: 500,
+              fontSize: "0.72rem",
+              letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color: "var(--pk-cream)",
-              opacity: 0.7,
-              marginTop: 6,
-              paddingLeft: ".38em",
+              color: "var(--ink-muted)",
             }}
           >
-            Charcoal grill · Chapel Street
-          </div>
-        </div>
+            Charcoal grill
+          </span>
+        </Link>
+
+        <nav
+          aria-label="Primary"
+          style={{ display: "flex", gap: "1.5rem", alignItems: "center" }}
+        >
+          {NAV_ITEMS.map((item) => (
+            <Link key={item.href} href={item.href} className="pk-nav-link">
+              {item.label}
+            </Link>
+          ))}
+          <a
+            href="tel:01730263348"
+            className="pk-nav-link pk-tnum"
+            style={{ fontWeight: 600 }}
+          >
+            01730 263348
+          </a>
+          <a
+            href="https://connect.poscraft.co.uk/"
+            className="pk-btn pk-btn--primary"
+            style={{ padding: "10px 18px", fontSize: "0.72rem" }}
+          >
+            Order
+          </a>
+        </nav>
       </div>
     </header>
   );
@@ -94,12 +97,12 @@ export function Footer() {
     <footer
       id="footer"
       style={{
-        background: "var(--pk-charcoal)",
-        color: "rgba(245,239,230,.6)",
+        background: "var(--surface-inverse)",
+        color: "var(--ink-on-dark-soft)",
         padding: "4rem 40px 2.5rem",
         fontFamily: "var(--font-sans)",
-        fontSize: ".84rem",
-        letterSpacing: ".02em",
+        fontSize: "0.88rem",
+        letterSpacing: "0.01em",
         position: "relative",
         zIndex: 3,
       }}
@@ -108,55 +111,50 @@ export function Footer() {
         style={{
           maxWidth: "var(--wrap-max)",
           margin: "0 auto",
-          position: "relative",
         }}
       >
-        <div style={{ textAlign: "center" }}>
-          <div
-            className="pk-wordmark"
-            style={{
-              display: "inline-block",
-              fontSize: "1.35rem",
-              marginBottom: 6,
-            }}
-          >
-            Petersfield's Kebab House
-          </div>
-          <div
-            style={{
-              fontSize: ".6rem",
-              letterSpacing: ".32em",
-              textTransform: "uppercase",
-              color: "rgba(245,239,230,.5)",
-              marginBottom: "2rem",
-              paddingLeft: ".32em",
-            }}
-          >
-            Est. [year] · Petersfield
-          </div>
-        </div>
-
         <div
           style={{
-            width: "100%",
-            height: 1,
-            background: "rgba(232,163,61,.18)",
-            maxWidth: 220,
-            margin: "0 auto 2.2rem",
+            marginBottom: "2.5rem",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "1rem",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
           }}
-        />
-
-        <div className="footer-grid" style={{ color: "rgba(245,239,230,.72)" }}>
+        >
           <div>
             <div
+              className="pk-wordmark pk-wordmark--on-dark"
+              style={{ fontSize: "1.4rem", marginBottom: 6 }}
+            >
+              Petersfield Kebab
+            </div>
+            <div
               style={{
-                fontSize: ".66rem",
-                letterSpacing: ".28em",
+                fontFamily: "var(--font-sans)",
+                fontSize: "0.72rem",
+                letterSpacing: "0.18em",
                 textTransform: "uppercase",
-                fontWeight: 700,
-                color: "var(--pk-amber)",
-                marginBottom: ".8rem",
+                color: "var(--saffron)",
               }}
+            >
+              Charcoal grill · Chapel Street
+            </div>
+          </div>
+          <a
+            href="https://connect.poscraft.co.uk/"
+            className="pk-btn pk-btn--primary"
+          >
+            Order online
+          </a>
+        </div>
+
+        <div className="footer-grid">
+          <div>
+            <div
+              className="pk-eyebrow"
+              style={{ color: "var(--saffron)", marginBottom: 12 }}
             >
               Find us
             </div>
@@ -164,9 +162,10 @@ export function Footer() {
               style={{
                 fontStyle: "normal",
                 fontFamily: "var(--font-serif)",
+                fontWeight: 500,
                 fontSize: "1rem",
                 lineHeight: 1.55,
-                color: "rgba(245,239,230,.85)",
+                color: "var(--ink-on-dark)",
               }}
             >
               26 Chapel Street
@@ -175,18 +174,18 @@ export function Footer() {
               <br />
               Hampshire GU32 3DT
             </address>
-            <div style={{ marginTop: "1rem" }}>
+            <div style={{ marginTop: "0.9rem" }}>
               <a
                 href="tel:01730263348"
+                className="pk-tnum"
                 style={{
-                  color: "var(--pk-amber-soft)",
+                  color: "var(--saffron)",
                   textDecoration: "none",
-                  borderBottom: "1px solid var(--pk-amber)",
+                  borderBottom: "1px solid var(--saffron)",
                   paddingBottom: 2,
-                  fontFamily: "var(--font-sans)",
                   fontWeight: 600,
-                  fontSize: ".95rem",
-                  letterSpacing: ".04em",
+                  fontSize: "0.95rem",
+                  letterSpacing: "0.02em",
                 }}
               >
                 01730 263348
@@ -196,50 +195,36 @@ export function Footer() {
 
           <div>
             <div
-              style={{
-                fontSize: ".66rem",
-                letterSpacing: ".28em",
-                textTransform: "uppercase",
-                fontWeight: 700,
-                color: "var(--pk-amber)",
-                marginBottom: ".8rem",
-              }}
+              className="pk-eyebrow"
+              style={{ color: "var(--saffron)", marginBottom: 12 }}
             >
               Hours
             </div>
             <div
               style={{
                 fontFamily: "var(--font-serif)",
-                lineHeight: 1.65,
-                color: "rgba(245,239,230,.85)",
+                fontWeight: 500,
+                lineHeight: 1.7,
+                color: "var(--ink-on-dark)",
               }}
+              className="pk-tnum"
             >
               <div>Mon – Thu · 11am – 11pm</div>
-              <div>Fri – Sat · 11am – 12am</div>
+              <div>Fri – Sat · 11am – 1am</div>
               <div>Sun · 12pm – 10pm</div>
             </div>
           </div>
 
           <div>
             <div
-              style={{
-                fontSize: ".66rem",
-                letterSpacing: ".28em",
-                textTransform: "uppercase",
-                fontWeight: 700,
-                color: "var(--pk-amber)",
-                marginBottom: ".8rem",
-              }}
+              className="pk-eyebrow"
+              style={{ color: "var(--saffron)", marginBottom: 12 }}
             >
-              The pages
+              Pages
             </div>
             <ul
               style={{
-                listStyle: "none",
-                padding: 0,
-                margin: 0,
-                lineHeight: 1.95,
-                fontFamily: "var(--font-sans)",
+                lineHeight: 2,
               }}
             >
               {[
@@ -251,12 +236,7 @@ export function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    style={{
-                      color: "rgba(245,239,230,.78)",
-                      textDecoration: "none",
-                      borderBottom: "1px solid rgba(232,163,61,.3)",
-                      paddingBottom: 2,
-                    }}
+                    className="pk-nav-link pk-nav-link--on-dark"
                   >
                     {label}
                   </Link>
@@ -268,21 +248,38 @@ export function Footer() {
 
         <div
           style={{
-            marginTop: "2.8rem",
+            marginTop: "3rem",
             paddingTop: "1.4rem",
-            borderTop: "1px solid rgba(232,163,61,.15)",
+            borderTop: "1px solid var(--rule-on-dark)",
             display: "flex",
             justifyContent: "space-between",
             flexWrap: "wrap",
-            gap: "1rem",
-            fontSize: ".7rem",
-            letterSpacing: ".18em",
-            textTransform: "uppercase",
-            color: "rgba(245,239,230,.35)",
+            gap: "0.75rem",
+            fontSize: "0.72rem",
+            letterSpacing: "0.08em",
+            color: "var(--ink-on-dark-soft)",
           }}
         >
-          <span>© Petersfield's Kebab House</span>
-          <span>Concept build — May 2026</span>
+          <div
+            style={{ display: "flex", gap: "1.25rem", alignItems: "center" }}
+          >
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "4px 8px",
+                border: "1px solid var(--saffron)",
+                color: "var(--saffron)",
+                borderRadius: 2,
+                fontWeight: 700,
+              }}
+            >
+              FSA 5★
+            </span>
+            <span>Food Hygiene Rating</span>
+          </div>
+          <span>© {new Date().getFullYear()} Petersfield Kebab</span>
         </div>
       </div>
     </footer>

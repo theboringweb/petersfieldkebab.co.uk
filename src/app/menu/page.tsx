@@ -1,27 +1,37 @@
 import type { Metadata } from "next";
 import { Footer, Header } from "@/components/chrome";
-import { PhotoPlaceholder, SectionHead, Wrap } from "@/components/primitives";
+import {
+  Button,
+  Chip,
+  PhotoPlaceholder,
+  Section,
+  SectionHead,
+  Wrap,
+} from "@/components/primitives";
+import { StickyBar } from "@/components/sections/StickyBar";
 
 export const metadata: Metadata = {
-  title: "Menu — Petersfield's Kebab House",
+  title: "Menu — Petersfield Kebab",
   description:
-    "Browse our charcoal-grilled kebabs, mixed grills, wraps, burgers and sides. Fresh bread daily, cooked to order.",
+    "Charcoal-grilled kebabs, mixed grills, wraps, burgers and sides. Fresh bread, cooked to order on Chapel Street, Petersfield.",
   alternates: { canonical: "/menu" },
   openGraph: {
-    title: "Menu — Petersfield's Kebab House",
+    title: "Menu — Petersfield Kebab",
     description:
-      "Browse our charcoal-grilled kebabs, mixed grills, wraps, burgers and sides.",
+      "Charcoal-grilled kebabs, mixed grills, wraps, burgers and sides.",
     url: "https://petersfieldkebab.co.uk/menu",
   },
 };
 
 /* ---------- Menu data ---------- */
+type ChipTone = "default" | "hot" | "mild" | "veggie" | "signature";
+
 interface MenuItem {
   name: string;
   description?: string;
   price: string;
-  allergen?: string;
-  spice?: boolean;
+  allergens?: string[];
+  chips?: { label: string; tone?: ChipTone }[];
 }
 
 interface MenuCategory {
@@ -33,115 +43,135 @@ interface MenuCategory {
 const MENU: MenuCategory[] = [
   {
     title: "Charcoal kebabs",
-    note: "Served in fresh bread with salad and sauce of your choice",
+    note: "Served in fresh lavash with salad and sauce of your choice.",
     items: [
       {
         name: "Lamb doner",
-        description: "Thin-sliced lamb, carved from the spit",
+        description: "Thin-sliced lamb, carved from the spit.",
         price: "£7.50",
-        allergen: "G, M",
+        allergens: ["G", "M"],
+        chips: [{ label: "Signature", tone: "signature" }],
       },
       {
         name: "Chicken doner",
-        description: "Marinated chicken breast, carved fresh",
+        description: "Marinated chicken breast, carved fresh.",
         price: "£7.50",
-        allergen: "G, M",
+        allergens: ["G", "M"],
       },
       {
         name: "Mixed doner",
-        description: "Lamb and chicken together",
+        description: "Lamb and chicken together.",
         price: "£8.50",
-        allergen: "G, M",
+        allergens: ["G", "M"],
       },
       {
-        name: "Shish kebab",
-        description: "Cubed lamb, marinated overnight, grilled over charcoal",
+        name: "Lamb shish",
+        description: "Cubed lamb, marinated overnight, grilled over charcoal.",
         price: "£8.95",
-        allergen: "G, M",
+        allergens: ["G", "M"],
+        chips: [{ label: "Signature", tone: "signature" }],
       },
       {
         name: "Chicken shish",
-        description: "Tender chicken pieces, marinated and chargrilled",
+        description: "Tender chicken pieces, marinated and chargrilled.",
         price: "£8.50",
-        allergen: "G, M",
+        allergens: ["G", "M"],
+        chips: [{ label: "Lean", tone: "mild" }],
       },
       {
-        name: "Kofte kebab",
-        description: "Spiced lamb mince, hand-rolled and grilled",
+        name: "Adana kofte",
+        description: "Spiced lamb mince, hand-rolled and grilled.",
         price: "£8.50",
-        allergen: "G, M",
-        spice: true,
+        allergens: ["G", "M"],
+        chips: [{ label: "Hot", tone: "hot" }],
       },
     ],
   },
   {
     title: "Mixed grills",
-    note: "All served with rice or chips, salad and bread",
+    note: "All served with rice or chips, salad and bread.",
     items: [
       {
         name: "Petersfield mixed grill",
-        description: "Lamb shish, chicken shish, kofte and lamb chop",
+        description: "Lamb shish, chicken shish, kofte and lamb chop.",
         price: "£16.95",
-        allergen: "G, M",
+        allergens: ["G", "M"],
+        chips: [
+          { label: "For two", tone: "default" },
+          { label: "Signature", tone: "signature" },
+        ],
       },
       {
         name: "Lamb grill",
-        description: "Lamb shish, kofte and lamb chop",
+        description: "Lamb shish, kofte and lamb chop.",
         price: "£14.95",
-        allergen: "G, M",
+        allergens: ["G", "M"],
       },
       {
         name: "Chicken grill",
-        description: "Chicken shish, chicken wings and chicken doner",
+        description: "Chicken shish, chicken wings and chicken doner.",
         price: "£14.50",
-        allergen: "G, M",
+        allergens: ["G", "M"],
       },
       {
-        name: "For one",
-        description: "Lamb shish, chicken shish and kofte",
+        name: "Grill for one",
+        description: "Lamb shish, chicken shish and kofte.",
         price: "£13.50",
-        allergen: "G, M",
+        allergens: ["G", "M"],
       },
     ],
   },
   {
     title: "Wraps",
-    note: "Toasted tortilla with salad, sauce and your choice of filling",
+    note: "Hot lavash wrap with salad, sauce and your choice of filling.",
     items: [
-      { name: "Lamb doner wrap", price: "£6.95", allergen: "G, M, Se" },
-      { name: "Chicken doner wrap", price: "£6.95", allergen: "G, M, Se" },
-      { name: "Shish wrap", price: "£7.50", allergen: "G, M, Se" },
-      { name: "Chicken shish wrap", price: "£7.50", allergen: "G, M, Se" },
+      {
+        name: "Lamb doner wrap",
+        price: "£6.95",
+        allergens: ["G", "M", "Se"],
+        chips: [{ label: "Signature", tone: "signature" }],
+      },
+      {
+        name: "Chicken doner wrap",
+        price: "£6.95",
+        allergens: ["G", "M", "Se"],
+      },
+      { name: "Lamb shish wrap", price: "£7.50", allergens: ["G", "M", "Se"] },
+      {
+        name: "Chicken shish wrap",
+        price: "£7.50",
+        allergens: ["G", "M", "Se"],
+      },
       {
         name: "Falafel wrap",
-        description: "Crispy falafel with hummus and tahini",
+        description: "Crispy falafel with hummus and tahini.",
         price: "£6.50",
-        allergen: "G, Se, N",
-        spice: true,
+        allergens: ["G", "Se", "N"],
+        chips: [{ label: "Vegan", tone: "veggie" }],
       },
     ],
   },
   {
     title: "Burgers",
-    note: "Served in a brioche bun with lettuce, tomato and house sauce",
+    note: "Brioche bun, lettuce, tomato, house sauce.",
     items: [
       {
         name: "Cheeseburger",
-        description: "Beef patty with melted cheddar",
+        description: "Beef patty with melted cheddar.",
         price: "£6.95",
-        allergen: "G, M, E, Mu",
+        allergens: ["G", "M", "E", "Mu"],
       },
       {
         name: "Chicken burger",
-        description: "Crispy breadcrumbed chicken breast",
+        description: "Crispy breadcrumbed chicken breast.",
         price: "£6.95",
-        allergen: "G, M, E, Mu",
+        allergens: ["G", "M", "E", "Mu"],
       },
       {
         name: "Lamb burger",
-        description: "Lamb patty with mint yoghurt",
+        description: "Lamb patty with mint yoghurt.",
         price: "£7.50",
-        allergen: "G, M, Mu",
+        allergens: ["G", "M", "Mu"],
       },
     ],
   },
@@ -149,14 +179,15 @@ const MENU: MenuCategory[] = [
     title: "Sides",
     items: [
       { name: "Chips", price: "£2.50" },
-      { name: "Cheesy chips", price: "£3.50", allergen: "M" },
-      { name: "Onion rings", price: "£3.50", allergen: "G" },
-      { name: "Garlic bread", price: "£3.50", allergen: "G, M" },
+      { name: "Cheesy chips", price: "£3.50", allergens: ["M"] },
+      { name: "Onion rings", price: "£3.50", allergens: ["G"] },
+      { name: "Garlic bread", price: "£3.50", allergens: ["G", "M"] },
       {
         name: "Halloumi fries",
-        description: "With chilli and mint yoghurt",
+        description: "With chilli and mint yoghurt.",
         price: "£4.95",
-        allergen: "M",
+        allergens: ["M"],
+        chips: [{ label: "Veggie", tone: "veggie" }],
       },
     ],
   },
@@ -164,7 +195,11 @@ const MENU: MenuCategory[] = [
     title: "Sauces",
     items: [
       { name: "Garlic sauce", price: "£0.80" },
-      { name: "Chilli sauce", price: "£0.80", spice: true },
+      {
+        name: "Chilli sauce",
+        price: "£0.80",
+        chips: [{ label: "Hot", tone: "hot" }],
+      },
       { name: "BBQ sauce", price: "£0.80" },
       { name: "Ketchup", price: "£0.80" },
     ],
@@ -185,33 +220,33 @@ function MenuRow({ item }: { item: MenuItem }) {
   return (
     <div className="pk-menu-row">
       <div style={{ minWidth: 0 }}>
-        <div className="pk-menu-row__name">
-          {item.name}
-          {item.spice ? (
-            <span style={{ marginLeft: 6, fontSize: ".8rem" }}>🌶️</span>
-          ) : null}
-        </div>
+        <div className="pk-menu-row__name">{item.name}</div>
         {item.description ? (
           <div className="pk-menu-row__desc">{item.description}</div>
         ) : null}
-        {item.allergen ? (
-          <div
-            style={{
-              fontSize: ".7rem",
-              color: "var(--pk-ink-soft)",
-              marginTop: 4,
-              opacity: 0.75,
-            }}
-          >
-            Allergens:{" "}
-            {item.allergen
-              .split(", ")
-              .map((a) => ALLERGEN_KEY[a] || a)
-              .join(", ")}
+        {(item.chips?.length || item.allergens?.length) && (
+          <div className="pk-menu-row__meta">
+            {item.chips?.map((c) => (
+              <Chip key={c.label} tone={c.tone}>
+                {c.label}
+              </Chip>
+            ))}
+            {item.allergens?.length ? (
+              <span
+                style={{
+                  fontSize: "0.7rem",
+                  color: "var(--ink-soft)",
+                  alignSelf: "center",
+                }}
+              >
+                Allergens:{" "}
+                {item.allergens.map((a) => ALLERGEN_KEY[a] || a).join(", ")}
+              </span>
+            ) : null}
           </div>
-        ) : null}
+        )}
       </div>
-      <div className="pk-menu-row__price">{item.price}</div>
+      <div className="pk-menu-row__price pk-tnum">{item.price}</div>
     </div>
   );
 }
@@ -221,19 +256,30 @@ export default function MenuPage() {
     <>
       <Header />
       <main>
-        {/* Hero */}
+        {/* Hero band — inverse */}
         <section
           style={{
-            background:
-              "radial-gradient(120% 90% at 50% 0%, var(--pk-charcoal-mid), var(--pk-charcoal))",
-            color: "var(--pk-cream)",
-            padding: "clamp(2.5rem, 6vw, 4rem) 0 clamp(2rem, 4vw, 3rem)",
+            background: "var(--surface-inverse)",
+            color: "var(--ink-on-dark)",
+            padding: "clamp(3rem, 6vw, 4.5rem) 0",
+            position: "relative",
+            overflow: "hidden",
           }}
         >
-          <Wrap>
+          <div
+            aria-hidden
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "radial-gradient(60% 80% at 80% 30%, rgba(217,162,63,0.22) 0%, transparent 60%)," +
+                "radial-gradient(50% 70% at 20% 80%, rgba(197,57,30,0.25) 0%, transparent 60%)",
+            }}
+          />
+          <Wrap style={{ position: "relative" }}>
             <SectionHead
-              eyebrow="Our menu"
-              title="Charcoal-grilled, cooked to order"
+              eyebrow="The menu"
+              title="The full menu."
               lead="Every kebab carved fresh. Every grill cooked over charcoal. Bread made daily."
               onDark
               center
@@ -242,82 +288,94 @@ export default function MenuPage() {
           </Wrap>
         </section>
 
-        {/* Signature photo strip */}
-        <section
-          style={{ padding: "2rem 0", background: "var(--pk-cream-warm)" }}
-        >
+        {/* Featured signature strip */}
+        <Section tight>
           <Wrap>
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(3, 1fr)",
-                gap: 14,
+                gap: 18,
               }}
+              className="pk-feature-grid"
             >
-              <PhotoPlaceholder
-                kind="dish"
-                aspect="4/3"
-                label="Lamb doner, carved from the spit"
-                note="Concept placeholder"
-                kicker="Signature"
-                style={{ borderRadius: 4 }}
-              />
-              <PhotoPlaceholder
-                kind="dish"
-                aspect="4/3"
-                label="Mixed grill with rice and bread"
-                note="Concept placeholder"
-                kicker="Grill"
-                style={{ borderRadius: 4 }}
-              />
-              <PhotoPlaceholder
-                kind="dish"
-                aspect="4/3"
-                label="Chicken shish, chargrilled and sauced"
-                note="Concept placeholder"
-                kicker="Charcoal"
-                style={{ borderRadius: 4 }}
-              />
+              {[
+                {
+                  alt: "Lamb doner, carved from the spit, dripping juice into hot lavash",
+                  label: "Lamb doner",
+                  tone: "warm" as const,
+                  note: "Signature · £7.50",
+                },
+                {
+                  alt: "Mixed grill platter — shish, kofte, lamb chop, rice and bread",
+                  label: "Petersfield mixed grill",
+                  tone: "ember" as const,
+                  note: "Signature · £16.95",
+                },
+                {
+                  alt: "Chicken shish skewer, chargrilled, with rice and salad",
+                  label: "Chicken shish",
+                  tone: "warm" as const,
+                  note: "Lean · £8.50",
+                },
+              ].map((p) => (
+                <PhotoPlaceholder
+                  key={p.label}
+                  tone={p.tone}
+                  aspect="4/3"
+                  alt={p.alt}
+                  label={p.label}
+                  note={p.note}
+                  style={{ borderRadius: 4 }}
+                />
+              ))}
             </div>
           </Wrap>
-        </section>
+          <style>
+            {`@media (max-width: 800px) {
+              .pk-feature-grid { grid-template-columns: 1fr !important; }
+            }`}
+          </style>
+        </Section>
 
         {/* Menu categories */}
-        <section style={{ padding: "4rem 0 5rem" }}>
+        <Section>
           <Wrap>
-            <div style={{ maxWidth: 760, margin: "0 auto" }}>
+            <div style={{ maxWidth: 780, margin: "0 auto" }}>
               <div
                 style={{
                   display: "flex",
                   justifyContent: "center",
-                  gap: ".75rem",
+                  gap: "0.75rem",
                   marginBottom: "3rem",
                   flexWrap: "wrap",
                 }}
               >
-                <a
+                <Button
+                  variant="primary"
                   href="https://connect.poscraft.co.uk/"
-                  className="pk-btn pk-btn--primary"
                 >
-                  Order now
-                </a>
-                <a
-                  href="tel:01730263348"
-                  className="pk-btn pk-btn--ghost-light"
-                >
-                  Call 01730 263348
-                </a>
+                  Order online
+                </Button>
+                <Button variant="outline" href="tel:01730263348">
+                  <span className="pk-tnum">Call 01730 263348</span>
+                </Button>
               </div>
 
               {MENU.map((category) => (
                 <section key={category.title} style={{ marginBottom: "3rem" }}>
+                  <div
+                    className="pk-saffron-rule"
+                    style={{ marginBottom: 14 }}
+                  />
                   <h2
                     style={{
                       fontFamily: "var(--font-serif)",
-                      fontVariationSettings: "'SOFT' 20, 'WONK' 1, 'opsz' 144",
+                      fontWeight: 600,
                       fontSize: "clamp(1.5rem, 3vw, 2rem)",
-                      color: "var(--pk-ink)",
-                      marginBottom: ".3rem",
+                      color: "var(--ink)",
+                      marginBottom: 6,
+                      letterSpacing: "-0.01em",
                     }}
                   >
                     {category.title}
@@ -325,8 +383,8 @@ export default function MenuPage() {
                   {category.note ? (
                     <p
                       style={{
-                        fontSize: ".9rem",
-                        color: "var(--pk-ink-soft)",
+                        fontSize: "0.95rem",
+                        color: "var(--ink-muted)",
                         marginBottom: "1rem",
                       }}
                     >
@@ -347,26 +405,25 @@ export default function MenuPage() {
               <div
                 style={{
                   marginTop: "2.5rem",
-                  padding: "1.2rem",
-                  background: "var(--pk-cream-warm)",
+                  padding: "1.4rem 1.6rem",
+                  background: "var(--canvas-warm)",
                   borderRadius: 4,
-                  fontSize: ".82rem",
-                  color: "var(--pk-ink-soft)",
+                  fontSize: "0.88rem",
+                  color: "var(--ink-muted)",
                   lineHeight: 1.55,
                 }}
               >
-                <strong style={{ color: "var(--pk-ink)" }}>
-                  Allergen key:
-                </strong>{" "}
-                G = Gluten, M = Milk, E = Egg, N = Nuts, Se = Sesame, Mu =
-                Mustard, S = Soya. Please inform us of any allergies before
-                ordering.
+                <strong style={{ color: "var(--ink)" }}>Allergen key:</strong> G
+                = Gluten, M = Milk, E = Egg, N = Nuts, Se = Sesame, Mu =
+                Mustard, S = Soya. Please tell us about any allergies before
+                ordering — most dishes can be adapted.
               </div>
             </div>
           </Wrap>
-        </section>
+        </Section>
       </main>
       <Footer />
+      <StickyBar />
     </>
   );
 }
