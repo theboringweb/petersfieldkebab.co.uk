@@ -96,7 +96,7 @@ export function Footer() {
         background: "var(--surface-inverse)",
         color: "var(--ink-on-dark-soft)",
         padding: "4rem 40px 2.5rem",
-        fontFamily: "var(--font-sans)",
+        fontFamily: "var(--font-body)",
         fontSize: "0.88rem",
         letterSpacing: "0.01em",
         position: "relative",
@@ -156,7 +156,6 @@ export function Footer() {
             <address
               style={{
                 fontStyle: "normal",
-                fontFamily: "var(--font-serif)",
                 fontWeight: 500,
                 fontSize: "1rem",
                 lineHeight: 1.55,
@@ -197,7 +196,6 @@ export function Footer() {
             </div>
             <div
               style={{
-                fontFamily: "var(--font-serif)",
                 fontWeight: 500,
                 lineHeight: 1.7,
                 color: "var(--ink-on-dark)",

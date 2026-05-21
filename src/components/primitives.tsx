@@ -117,12 +117,12 @@ export function SectionHead({
       ) : null}
       <h2
         style={{
-          fontFamily: "var(--font-serif)",
-          fontWeight: 600,
-          fontSize: "clamp(2rem, 4.5vw, 2.8rem)",
-          letterSpacing: "-0.015em",
-          lineHeight: 1.1,
-          textWrap: "pretty",
+          fontFamily: "var(--font-display)",
+          fontWeight: 400,
+          fontSize: "clamp(2rem, 4.6vw, 2.5rem)",
+          letterSpacing: 0,
+          lineHeight: 1.05,
+          textTransform: "uppercase",
           color: onDark ? "var(--ink-on-dark)" : "var(--ink)",
         }}
       >
@@ -177,7 +177,7 @@ export function TextLink({
     <a
       href={href}
       style={{
-        fontFamily: "var(--font-sans)",
+        fontFamily: "var(--font-body)",
         fontWeight: 600,
         fontSize: "0.95rem",
         color: onDark ? "var(--ink-on-dark)" : "var(--ink)",
@@ -363,7 +363,7 @@ export function TrustItem({
     >
       <div
         style={{
-          fontFamily: "var(--font-sans)",
+          fontFamily: "var(--font-body)",
           fontSize: "0.66rem",
           fontWeight: 700,
           letterSpacing: "0.18em",
@@ -376,11 +376,13 @@ export function TrustItem({
       </div>
       <div
         style={{
-          fontFamily: "var(--font-serif)",
-          fontWeight: 600,
-          fontSize: "1.25rem",
+          fontFamily: "var(--font-display)",
+          fontWeight: 400,
+          fontSize: "1.45rem",
           color: "var(--ink)",
-          lineHeight: 1.2,
+          lineHeight: 1.1,
+          textTransform: "uppercase",
+          letterSpacing: 0,
         }}
       >
         {headline}
@@ -388,7 +390,7 @@ export function TrustItem({
       <div
         style={{
           marginTop: 4,
-          fontFamily: "var(--font-sans)",
+          fontFamily: "var(--font-body)",
           fontSize: "0.82rem",
           color: "var(--ink-muted)",
         }}
@@ -431,7 +433,7 @@ export function StarRating({
         display: "inline-flex",
         alignItems: "center",
         gap: 8,
-        fontFamily: "var(--font-sans)",
+        fontFamily: "var(--font-body)",
         fontSize: compact ? "0.82rem" : "0.92rem",
         color: onDark ? "var(--ink-on-dark-soft)" : "var(--ink-muted)",
       }}
@@ -608,7 +610,7 @@ export function OpeningHours({ onDark = false }: { onDark?: boolean }) {
       </div>
       <div
         style={{
-          fontFamily: "var(--font-sans)",
+          fontFamily: "var(--font-body)",
           fontSize: "0.95rem",
           lineHeight: 1.7,
           color: onDark ? "var(--ink-on-dark)" : "var(--ink)",

@@ -31,10 +31,9 @@ export function About() {
             <p
               style={{
                 color: "var(--ink)",
-                fontFamily: "var(--font-serif)",
                 fontWeight: 500,
-                fontSize: "1.25rem",
-                lineHeight: 1.45,
+                fontSize: "1.18rem",
+                lineHeight: 1.5,
                 textWrap: "pretty",
               }}
             >

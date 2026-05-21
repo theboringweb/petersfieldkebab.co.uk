@@ -30,9 +30,8 @@ export function Visit() {
             <address
               style={{
                 fontStyle: "normal",
-                fontFamily: "var(--font-serif)",
                 fontWeight: 500,
-                fontSize: "1.1rem",
+                fontSize: "1.05rem",
                 lineHeight: 1.55,
                 color: "var(--ink)",
                 marginBottom: "1.25rem",

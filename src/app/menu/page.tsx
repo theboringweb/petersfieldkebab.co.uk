@@ -367,12 +367,14 @@ export default function MenuPage() {
                   <div className="pk-gold-rule" style={{ marginBottom: 14 }} />
                   <h2
                     style={{
-                      fontFamily: "var(--font-serif)",
-                      fontWeight: 600,
-                      fontSize: "clamp(1.5rem, 3vw, 2rem)",
+                      fontFamily: "var(--font-display)",
+                      fontWeight: 400,
+                      fontSize: "clamp(1.75rem, 3.4vw, 2.25rem)",
+                      lineHeight: 1.05,
                       color: "var(--ink)",
                       marginBottom: 6,
-                      letterSpacing: "-0.01em",
+                      letterSpacing: 0,
+                      textTransform: "uppercase",
                     }}
                   >
                     {category.title}

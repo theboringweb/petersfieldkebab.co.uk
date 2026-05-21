@@ -74,13 +74,11 @@ export function Reviews() {
               <Stars />
               <blockquote
                 style={{
-                  fontFamily: "var(--font-serif)",
                   fontWeight: 500,
-                  fontSize: "1.15rem",
-                  lineHeight: 1.4,
+                  fontSize: "1.05rem",
+                  lineHeight: 1.5,
                   color: "var(--ink)",
                   textWrap: "pretty",
-                  letterSpacing: "-0.005em",
                 }}
               >
                 <span style={{ color: "var(--gold-deep)", marginRight: 4 }}>
@@ -97,7 +95,7 @@ export function Reviews() {
                   display: "flex",
                   flexDirection: "column",
                   gap: 2,
-                  fontFamily: "var(--font-sans)",
+                  fontFamily: "var(--font-body)",
                   color: "var(--ink-muted)",
                   fontSize: "0.85rem",
                 }}

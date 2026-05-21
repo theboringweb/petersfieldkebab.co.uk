@@ -44,7 +44,7 @@ export function Hero() {
           position: "absolute",
           top: 16,
           right: 16,
-          fontFamily: "var(--font-sans)",
+          fontFamily: "var(--font-body)",
           fontSize: "0.62rem",
           fontWeight: 700,
           letterSpacing: "0.18em",
@@ -67,17 +67,18 @@ export function Hero() {
           padding: "clamp(4rem, 9vw, 7rem) 0 clamp(3rem, 6vw, 5rem)",
         }}
       >
-        <div style={{ maxWidth: 720 }}>
+        <div style={{ maxWidth: 760 }}>
           <div
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: 10,
-              marginBottom: "1.5rem",
-              fontFamily: "var(--font-sans)",
-              fontSize: "0.7rem",
-              fontWeight: 600,
-              letterSpacing: "0.18em",
+              marginBottom: "1.25rem",
+              fontFamily: "var(--font-display)",
+              fontSize: 12,
+              lineHeight: "18px",
+              fontWeight: 400,
+              letterSpacing: "0.08em",
               textTransform: "uppercase",
               color: "var(--gold)",
             }}
@@ -95,12 +96,12 @@ export function Hero() {
 
           <h1
             style={{
-              fontFamily: "var(--font-serif)",
-              fontWeight: 600,
-              fontSize: "clamp(2.6rem, 6.5vw, 4.6rem)",
-              lineHeight: 1.05,
-              letterSpacing: "-0.02em",
-              textWrap: "pretty",
+              fontFamily: "var(--font-display)",
+              fontWeight: 400,
+              fontSize: "clamp(3.5rem, 9vw, 6rem)",
+              lineHeight: 1,
+              letterSpacing: 0,
+              textTransform: "uppercase",
               color: "var(--ink-on-dark)",
             }}
           >
@@ -109,9 +110,9 @@ export function Hero() {
 
           <p
             style={{
-              marginTop: "1.4rem",
+              marginTop: "1.6rem",
               color: "var(--ink-on-dark-soft)",
-              fontSize: "1.2rem",
+              fontSize: "1.15rem",
               lineHeight: 1.55,
               maxWidth: 560,
             }}

@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Anton, Inter } from "next/font/google";
 import "./globals.css";
 
-const fraunces = Fraunces({
+const anton = Anton({
   subsets: ["latin"],
-  axes: ["SOFT", "WONK", "opsz"],
-  style: ["normal", "italic"],
+  weight: ["400"],
   display: "swap",
-  variable: "--font-fraunces",
+  variable: "--font-anton",
   preload: true,
 });
 
@@ -72,7 +71,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-GB" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en-GB" className={`${anton.variable} ${inter.variable}`}>
       <body>
         {children}
         <script
