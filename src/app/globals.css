@@ -1,0 +1,379 @@
+@import "tailwindcss";
+
+/* =========================================================
+   Petersfield Kebab House — design tokens, base styles & utilities
+   ========================================================= */
+
+:root {
+  /* ---------- Brand palette ---------- */
+  --pk-charcoal: #1a1614;
+  --pk-charcoal-mid: #2a2420;
+  --pk-charcoal-light: #3a322c;
+  --pk-amber: #e8a33d;
+  --pk-amber-soft: #f0bc6a;
+  --pk-amber-dim: rgba(232, 163, 61, 0.35);
+  --pk-oxblood: #7a1f1f;
+  --pk-cream: #f5efe6;
+  --pk-cream-warm: #ebe3d6;
+  --pk-cream-dark: #ddd4c5;
+  --pk-ink: #0f0d0c;
+  --pk-ink-soft: #4a4239;
+  --pk-rule: rgba(15, 13, 12, 0.12);
+  --pk-rule-amber: rgba(232, 163, 61, 0.4);
+
+  /* ---------- Semantic ---------- */
+  --bg: var(--pk-cream);
+  --bg-elev: #faf7f2;
+  --bg-band: var(--pk-cream-warm);
+  --bg-dark: var(--pk-charcoal);
+  --bg-dark-mid: var(--pk-charcoal-mid);
+  --fg: var(--pk-ink);
+  --fg-soft: var(--pk-ink-soft);
+  --fg-on-dark: var(--pk-cream);
+  --accent: var(--pk-amber);
+  --accent-bright: var(--pk-amber-soft);
+  --link: var(--pk-oxblood);
+  --border: var(--pk-rule);
+
+  /* ---------- Type ---------- */
+  --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans:
+    var(--font-inter), -apple-system, "Segoe UI", system-ui, sans-serif;
+
+  /* ---------- Layout ---------- */
+  --wrap-max: 1120px;
+  --wrap-pad: 40px;
+}
+
+/* =========================================================
+   Base reset
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+address,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+ul,
+ol {
+  list-style: none;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  color: inherit;
+}
+
+::selection {
+  background: var(--pk-oxblood);
+  color: var(--pk-cream);
+}
+
+/* Focus rings — amber */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible,
+iframe:focus-visible {
+  outline: 2px solid var(--pk-amber);
+  outline-offset: 3px;
+}
+
+/* =========================================================
+   Layout helpers
+   ========================================================= */
+.wrap {
+  max-width: var(--wrap-max);
+  margin: 0 auto;
+  padding: 0 var(--wrap-pad);
+}
+
+.section {
+  padding: 5.5rem 0;
+  position: relative;
+}
+.section--band {
+  background: var(--bg-band);
+}
+.section--dark {
+  background: radial-gradient(
+    120% 90% at 50% 0%,
+    var(--pk-charcoal-mid) 0%,
+    var(--pk-charcoal) 75%
+  );
+  color: var(--pk-cream);
+}
+
+/* =========================================================
+   Type patterns
+   ========================================================= */
+.pk-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--pk-amber);
+}
+
+.pk-wordmark {
+  font-family: var(--font-serif);
+  font-variation-settings:
+    "opsz" 144,
+    "SOFT" 30,
+    "WONK" 1;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: var(--pk-amber-soft);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--fg);
+  letter-spacing: -0.015em;
+}
+
+/* =========================================================
+   Buttons
+   ========================================================= */
+.pk-btn {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  background: transparent;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.pk-btn--primary {
+  background: var(--pk-amber);
+  color: var(--pk-charcoal);
+  box-shadow: inset 0 0 0 1px var(--pk-amber);
+}
+.pk-btn--primary:hover {
+  background: var(--pk-amber-soft);
+  box-shadow: inset 0 0 0 1px var(--pk-amber-soft);
+}
+
+.pk-btn--ghost-dark {
+  color: var(--pk-amber-soft);
+  border-color: rgba(240, 188, 106, 0.7);
+}
+.pk-btn--ghost-dark:hover {
+  background: var(--pk-cream);
+  color: var(--pk-charcoal);
+  border-color: var(--pk-cream);
+}
+
+.pk-btn--ghost-light {
+  color: var(--pk-oxblood);
+  border-color: var(--pk-amber);
+}
+.pk-btn--ghost-light:hover {
+  background: var(--pk-oxblood);
+  color: var(--pk-cream);
+  border-color: var(--pk-oxblood);
+}
+
+/* =========================================================
+   Nav link
+   ========================================================= */
+.pk-nav-link {
+  color: rgba(245, 239, 230, 0.75);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 3px;
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+.pk-nav-link:hover {
+  color: var(--pk-amber-soft);
+  border-bottom-color: var(--pk-amber);
+}
+
+/* =========================================================
+   Menu item row
+   ========================================================= */
+.pk-menu-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--pk-rule);
+}
+.pk-menu-row__name {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--pk-ink);
+  line-height: 1.2;
+}
+.pk-menu-row__desc {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  color: var(--pk-ink-soft);
+  margin-top: 4px;
+  line-height: 1.45;
+}
+.pk-menu-row__price {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--pk-oxblood);
+  white-space: nowrap;
+  flex: none;
+}
+
+/* =========================================================
+   Sticky mobile CTA bar
+   ========================================================= */
+.pk-sticky-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: var(--pk-charcoal);
+  border-top: 1px solid rgba(232, 163, 61, 0.25);
+  padding: 12px 16px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.pk-sticky-bar__btn {
+  flex: 1;
+  max-width: 200px;
+  font-size: 0.72rem;
+  padding: 14px 16px;
+  border-radius: 4px;
+}
+
+/* =========================================================
+   Section grids
+   ========================================================= */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.visit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.4rem;
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 880px) {
+  .wrap {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+  .hero-grid,
+  .about-grid,
+  .visit-grid,
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2.2rem;
+  }
+  .hdr-wrap {
+    padding: 16px 22px 20px;
+  }
+  .section {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+}
+@media (max-width: 640px) {
+  .pk-sticky-bar {
+    display: flex !important;
+  }
+}
+@media (max-width: 580px) {
+  h1,
+  h2 {
+    text-wrap: balance;
+  }
+}
+
+/* =========================================================
+   Reduced motion
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .pk-btn,
+  .pk-nav-link,
+  .pk-menu-row {
+    transition: none;
+  }
+}
